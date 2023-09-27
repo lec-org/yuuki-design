@@ -1,0 +1,11 @@
+@import '../../style/theme.less';
+
+@btn-prefix-cls: ~'@{prefix}-btn';
+
+.@{btn-prefix-cls}-text.@{btn-prefix-cls}-text-normal {
+  &:not(.@{btn-prefix-cls}-disabled) {
+    &:not(.@{btn-prefix-cls}-loading):hover {
+      background-color: transparent;
+    }
+  }
+}

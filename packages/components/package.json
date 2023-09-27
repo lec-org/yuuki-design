@@ -1,0 +1,43 @@
+{
+  "name": "yuuki-design",
+  "version": "0.1.0",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepare": "modern build",
+    "dev": "pnpm build:watch",
+    "build": "modern build",
+    "build:watch": "modern build -w",
+    "new": "modern new",
+    "upgrade": "modern upgrade"
+  },
+  "peerDependencies": {
+    "@arco-design/web-react": ">=2.53.0",
+    "react-dom": ">=18",
+    "react": ">=18"
+  },
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@arco-design/web-react": "^2.53.2",
+    "@modern-js-app/eslint-config": "2.35.1",
+    "@modern-js/eslint-config": "2.35.1",
+    "@modern-js/module-tools": "2.35.1",
+    "@modern-js/tsconfig": "2.35.1",
+    "@types/jest": "~29.2.4",
+    "@types/lodash-es": "^4.17.9",
+    "@types/node": "~16.11.7",
+    "@types/react": "~18.0.26",
+    "husky": "~8.0.1",
+    "lint-staged": "~13.1.0",
+    "prettier": "~2.8.1",
+    "rimraf": "~3.0.2",
+    "typescript": "~5.0.4"
+  },
+  "sideEffects": [],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

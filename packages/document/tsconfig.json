@@ -1,0 +1,13 @@
+{
+  "extends": "@modern-js/tsconfig/base",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./demos/*"]
+    },
+    "jsx": "react-jsx",
+    "esModuleInterop": true
+  },
+  "include": ["demos"],
+  "exclude": ["**/node_modules"]
+}

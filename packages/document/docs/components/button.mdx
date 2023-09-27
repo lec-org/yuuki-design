@@ -1,0 +1,24 @@
+# Button 按钮
+
+基于 arco 的 Button 添加了异步函数自动加载与样式调整
+
+## 基本用法
+
+新增`text-normal`类型，去除阴影的纯文字
+
+<code src='~/button/basic.tsx' />
+
+## 异步方法自动加载
+
+`onClick`传入异步方法时，在不设置`loading`参数的情况下会自动维护`loading`，不需要的情况下可以传入 `false` 关闭
+
+<code src='~/button/auto-loading.tsx' />
+
+## API
+
+继承了 [ArcoButton](https://arco.design/react/components/button#api) 的所有属性，重写以下属性
+
+| 参数名  | 描述           | 类型                                                                                      | 默认值    |
+| ------- | -------------- | ----------------------------------------------------------------------------------------- | --------- |
+| type    | 按钮类型       | 'default' \| 'primary' \| 'secondary' \| 'dashed' \| 'outline' \| 'text' \| 'text-normal' | 'default' |
+| onClick | 点击按钮的回调 | (e: React.MouseEvent) => void \| Promise\<void\>                                          | -         |

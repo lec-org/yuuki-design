@@ -11,7 +11,7 @@ hero:
       link: /guide
     - theme: alt
       text: Github
-      link: https://github.com/web-infra-dev/rspress
+      link: https://github.com/Yuuki-Yuuna/yuuki-design
   image:
     src: /rspress-icon.png
     alt: Yuuki Design Logo

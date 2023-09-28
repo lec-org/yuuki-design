@@ -12,15 +12,20 @@
     "upgrade": "modern upgrade"
   },
   "peerDependencies": {
-    "@arco-design/web-react": ">=2.53.0",
+    "react": ">=18",
     "react-dom": ">=18",
-    "react": ">=18"
+    "@arco-design/web-react": ">=2.53.0",
+    "@formily/core": ">=2.2.0",
+    "@formily/react": ">=2.2.0"
   },
   "dependencies": {
+    "ahooks": "^3.7.8",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@arco-design/web-react": "^2.53.2",
+    "@formily/core": "^2.2.29",
+    "@formily/react": "^2.2.29",
     "@modern-js-app/eslint-config": "2.35.1",
     "@modern-js/eslint-config": "2.35.1",
     "@modern-js/module-tools": "2.35.1",

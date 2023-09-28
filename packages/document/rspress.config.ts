@@ -52,6 +52,17 @@ export default defineConfig({
               link: '/components/button'
             }
           ]
+        },
+        {
+          text: '数据输入',
+          collapsed: false,
+          collapsible: false,
+          items: [
+            {
+              text: 'Select 选择器',
+              link: '/components/select'
+            }
+          ]
         }
       ]
     }

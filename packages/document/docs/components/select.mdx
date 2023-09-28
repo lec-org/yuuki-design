@@ -1,0 +1,42 @@
+# Select 选择器
+
+基于 arco 的 Select 修改成了能够自动发送请求的选择器
+
+## 基本用法
+
+传入**必传项**`request`，在组件挂载和`inputValue`改变时会调用`request`得到选项
+
+<code src='~/select/basic.tsx' />
+
+## 控制请求时机
+
+对请求时机有需求，可以传入`requestTrigger`控制请求时机
+
+<code src='~/select/request-trigger.tsx' />
+
+## 失焦清除选项
+
+在涉及不同输入项的联动时，也许你需要失去焦点时在清除缓存的选项，设置`resetOnBlur`即可实现
+
+<code src='~/select/reset-blur.tsx' />
+
+## API
+
+<font size='4'>Select</font>
+
+继承了 [ArcoSelect](https://arco.design/react/components/select#api) 的所有属性，重写以下属性
+
+| 参数名         | 描述                                            | 类型                                            | 默认值            |
+| -------------- | ----------------------------------------------- | ----------------------------------------------- | ----------------- |
+| value          | 选择器的值（移除了 LabeledValue）               | string \| string[] \| number \| number[]        | -                 |
+| defaultValue   | 选择框的默认值（移除了 LabeledValue）           | string \| string[] \| number \| number[]        | -                 |
+| request        | 用于请求选项                                    | (keyword?: string) => Promise\<LabeledValue[]\> | -                 |
+| requestTrigger | 组件请求的时机                                  | RequestTriggerType[]                            | ['mount','input'] |
+| resetOnBlur    | 是否在失去焦点时清除 option（必须开启聚焦请求） | boolean                                         | -                 |
+| debounceWait   | 请求防抖的时间（ms）                            | number                                          | 800               |
+
+<font size='4'>Select Reference Type</font>
+
+| 参数名     | 描述         | 类型                 | 默认值 |
+| ---------- | ------------ | -------------------- | ------ |
+| getOptions | 获得所有选项 | () => LabeledValue[] | -      |

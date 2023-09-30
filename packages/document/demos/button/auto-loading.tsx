@@ -31,6 +31,12 @@ const App: React.FC = () => {
       <Button loading={loading} onClick={onClick}>
         手动加载
       </Button>
+      <Button type='text-normal' onClick={onAutoClick}>
+        自动加载
+      </Button>
+      <Button type='text' loading={loading} onClick={onClick}>
+        手动加载
+      </Button>
     </Space>
   )
 }

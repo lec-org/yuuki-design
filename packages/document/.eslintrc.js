@@ -10,5 +10,8 @@ module.exports = {
       files: ['rspress.config.ts'],
       extends: ['plugin:@typescript-eslint/disable-type-checked']
     }
-  ]
+  ],
+  rules: {
+    '@typescript-eslint/no-parameter-properties': 'off'
+  }
 }

@@ -1,15 +1,21 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { isUndefined } from 'lodash-es'
 import {
   Button as ArcoButton,
-  ButtonProps as ArcoButtonProps
+  ButtonProps as ArcoButtonProps,
+  ConfigProvider
 } from '@arco-design/web-react'
 import { ButtonProps } from './type'
+
+const { ConfigContext } = ConfigProvider
 
 const Button: React.FC<ButtonProps> = (props) => {
   const { type, loading, onClick, ...restProps } = props
 
   const [autoLoading, setAutoLoading] = useState(false)
+
+  const { getPrefixCls } = useContext(ConfigContext)
+  const prefixCls = getPrefixCls!('btn')
 
   const loadingOnClick = useCallback(
     async (event: React.MouseEvent) => {
@@ -23,7 +29,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   const buttonProps = useMemo<ArcoButtonProps>(() => {
     const buttonProps: ArcoButtonProps = {}
     if (type === 'text-normal') {
-      buttonProps.className = 'arco-btn-text-normal'
+      buttonProps.className = `${prefixCls}-text-normal`
       buttonProps.type = 'text'
     } else {
       buttonProps.type = type
@@ -38,7 +44,15 @@ const Button: React.FC<ButtonProps> = (props) => {
     })
 
     return buttonProps
-  }, [loading, loadingOnClick, onClick, restProps, type])
+  }, [
+    loading,
+    autoLoading,
+    loadingOnClick,
+    onClick,
+    prefixCls,
+    restProps,
+    type
+  ])
 
   return <ArcoButton {...buttonProps} />
 }

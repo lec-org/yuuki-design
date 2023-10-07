@@ -7,6 +7,7 @@ module.exports = {
     project: ['../tsconfig.json']
   },
   rules: {
-    '@typescript-eslint/no-parameter-properties': 'off'
+    '@typescript-eslint/no-parameter-properties': 'off',
+    'react-hooks/exhaustive-deps': 'warn'
   }
 }

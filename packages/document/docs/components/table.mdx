@@ -1,0 +1,19 @@
+# Table 表格
+
+基于 arco 的 Table
+
+## 基本用法
+
+常规的 table 用法，同 arco
+
+<code src='~/table/basic.tsx' />
+
+## 自动高度
+
+table 的 `srcoll`中，传入 `y: 'auto'`即可自适应容器高度，请保证设置了父容器高度，不然在一些情况无法正确计算
+
+<code src='~/table/auto-height.tsx' />
+
+::: tip
+tableHeader 和 pagination 的 margin 与 border 暂时未得到处理，故会留下一定空隙
+:::

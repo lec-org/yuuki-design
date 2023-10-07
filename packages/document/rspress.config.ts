@@ -63,6 +63,17 @@ export default defineConfig({
               link: '/components/select'
             }
           ]
+        },
+        {
+          text: '数据展示',
+          collapsed: false,
+          collapsible: false,
+          items: [
+            {
+              text: 'Table 表格',
+              link: '/components/table'
+            }
+          ]
         }
       ]
     }

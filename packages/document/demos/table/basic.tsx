@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, ColumnProps } from 'yuuki-design'
 
-const columns: ColumnProps[] = [
+const columns: ColumnProps<DataType>[] = [
   {
     title: 'Name',
     dataIndex: 'name'
@@ -19,7 +19,16 @@ const columns: ColumnProps[] = [
     dataIndex: 'email'
   }
 ]
-const data = [
+
+interface DataType {
+  key: React.Key
+  name: string
+  identity: string
+  address: string
+  email: string
+}
+
+const data: DataType[] = [
   {
     key: '1',
     name: 'Asahi',

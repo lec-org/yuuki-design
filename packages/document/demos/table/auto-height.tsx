@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, ColumnProps } from 'yuuki-design'
 
-const columns: ColumnProps[] = [
+const columns: ColumnProps<DataType>[] = [
   {
     title: '姓名',
     dataIndex: 'name'
@@ -19,7 +19,16 @@ const columns: ColumnProps[] = [
     dataIndex: 'email'
   }
 ]
-const data = Array.from(new Array(20).keys()).map((item) => ({
+
+interface DataType {
+  key: React.Key
+  name: string
+  salary: string
+  address: string
+  email: string
+}
+
+const data: DataType[] = Array.from(new Array(20).keys()).map((item) => ({
   key: item,
   name: `name${item + 1}`,
   salary: '总之就是很有钱',

@@ -9,7 +9,7 @@ export interface TableProps<T = any>
   extends Omit<ArcoTableProps<T>, 'components' | 'renderPagination'> {}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ColumnProps extends TableColumnProps {}
+export interface ColumnProps<T = any> extends TableColumnProps<T> {}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface TableRef extends TableInstance {}

@@ -82,4 +82,9 @@ function Table<T = any>(
   )
 }
 
-export default forwardRef<TableRef, TableProps>(Table)
+const TableComponent = forwardRef<TableRef, TableProps>(Table)
+
+export default TableComponent as <T>(
+  props: TableProps<T>,
+  ref: React.ForwardedRef<TableRef>
+) => React.ReactElement

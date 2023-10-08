@@ -8,6 +8,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-parameter-properties': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'react-hooks/exhaustive-deps': 'warn'
   }
 }

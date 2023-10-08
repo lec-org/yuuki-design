@@ -1,4 +1,4 @@
-import {
+import React, {
   forwardRef,
   useContext,
   useImperativeHandle,
@@ -11,11 +11,14 @@ import {
   Table as ArcoTable,
   TableInstance
 } from '@arco-design/web-react'
-import { TableProps } from './type'
+import { TableProps, TableRef } from './type'
 
 const { ConfigContext } = ConfigProvider
 
-const Table = forwardRef<unknown, TableProps>((props, ref) => {
+function Table<T = any>(
+  props: TableProps<T>,
+  ref: React.ForwardedRef<TableRef>
+) {
   const { columns, data, scroll, ...restProps } = props
 
   const isAutoHeight = scroll?.y === 'auto' // 自动高度
@@ -29,7 +32,6 @@ const Table = forwardRef<unknown, TableProps>((props, ref) => {
     const container = table.parentElement!
     // table高度 = header高度 + body高度 + 分页器高度（若存在）
     const thead = table.querySelector<HTMLDivElement>(`.${prefixCls}-header`)!
-    // const tbody = table.querySelector<HTMLDivElement>(`.${prefixCls}-body`)!
     const pagination = table.querySelector<HTMLDivElement>(
       `.${prefixCls}-pagination`
     )
@@ -50,12 +52,8 @@ const Table = forwardRef<unknown, TableProps>((props, ref) => {
         thead.getBoundingClientRect().height -
         (pagination?.getBoundingClientRect().height ?? 0)
 
-      if (bodyHeight > 0) {
-        // bodyHeight不够则无法自动高度
-        setAutoHeight(bodyHeight)
-        // tbody.style.height = `${bodyHeight}px`
-        // tbody.style.overflowY = 'auto'
-      }
+      // bodyHeight不够则无法自动高度
+      setAutoHeight(bodyHeight > 0 ? bodyHeight : true)
     }
 
     if (isAutoHeight) {
@@ -69,7 +67,9 @@ const Table = forwardRef<unknown, TableProps>((props, ref) => {
   }, [isAutoHeight, prefixCls])
 
   const tableRef = useRef<TableInstance>(null)
-  useImperativeHandle(ref, () => ({}))
+  useImperativeHandle(ref, () => ({
+    ...tableRef.current!
+  }))
 
   return (
     <ArcoTable
@@ -80,6 +80,6 @@ const Table = forwardRef<unknown, TableProps>((props, ref) => {
       scroll={{ ...scroll, y: isAutoHeight ? autoHeight : scroll?.y }}
     />
   )
-})
+}
 
-export default Table
+export default forwardRef<TableRef, TableProps>(Table)

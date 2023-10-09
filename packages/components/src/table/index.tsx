@@ -28,41 +28,51 @@ function Table<T = any>(
   const prefixCls = getPrefixCls!('table')
 
   useLayoutEffect(() => {
-    const table = tableRef.current!.getRootDomElement()
-    const container = table.parentElement!
+    const table = tableRef.current?.getRootDomElement()
+    const wrapper = table?.parentElement
     // table高度 = header高度 + body高度 + 分页器高度（若存在）
-    const thead = table.querySelector<HTMLDivElement>(`.${prefixCls}-header`)!
-    const pagination = table.querySelector<HTMLDivElement>(
+    const thead = table?.querySelector<HTMLDivElement>(`.${prefixCls}-header`)
+    const pagination = table?.querySelector<HTMLDivElement>(
       `.${prefixCls}-pagination`
+    )
+    const container = table?.querySelector<HTMLDivElement>(
+      `.${prefixCls}-container`
     )
 
     const computedTableHeight = () => {
+      if (!wrapper || !table || !container || !thead) {
+        return
+      }
       const tableHeight =
-        container.getBoundingClientRect().height -
-        Array.from(container.children).reduce(
+        wrapper.clientHeight -
+        Array.from(wrapper.children).reduce(
           (pre, child) =>
-            Object.is(table, child)
-              ? pre
-              : pre + child.getBoundingClientRect().height,
+            Object.is(table, child) ? pre : pre + child.clientHeight,
           0
         )
-      // 关于marigin和border暂时难解决，所以会留下一定空隙
+
+      const borderHeight = container.offsetHeight - container.clientHeight
+      const gapHeight = 2 // 留2px的间隙(border的真实px与预设不符合)
+      // thead在arco中为负数margin，若为正数可能需要考虑margin(负数marigin的clientHeight有点奇怪)
       const bodyHeight =
         tableHeight -
-        thead.getBoundingClientRect().height -
-        (pagination?.getBoundingClientRect().height ?? 0)
+        gapHeight -
+        borderHeight -
+        thead.clientHeight -
+        (pagination?.clientHeight ?? 0)
 
       // bodyHeight不够则无法自动高度
       setAutoHeight(bodyHeight > 0 ? bodyHeight : true)
     }
 
+    const observer = new ResizeObserver(computedTableHeight)
+
     if (isAutoHeight) {
-      computedTableHeight()
-      window.addEventListener('resize', computedTableHeight)
+      wrapper && observer.observe(wrapper)
     }
 
     return () => {
-      window.removeEventListener('resize', computedTableHeight)
+      observer.disconnect()
     }
   }, [isAutoHeight, prefixCls])
 
@@ -85,6 +95,5 @@ function Table<T = any>(
 const TableComponent = forwardRef<TableRef, TableProps>(Table)
 
 export default TableComponent as <T>(
-  props: TableProps<T>,
-  ref: React.ForwardedRef<TableRef>
+  props: TableProps<T> & { ref?: React.Ref<TableRef> }
 ) => React.ReactElement

@@ -11,6 +11,7 @@ import {
   Table as ArcoTable,
   TableInstance
 } from '@arco-design/web-react'
+import { transformColumn } from './util'
 import { TableProps, TableRef } from './type'
 
 const { ConfigContext } = ConfigProvider
@@ -19,7 +20,7 @@ function Table<T = any>(
   props: TableProps<T>,
   ref: React.ForwardedRef<TableRef>
 ) {
-  const { columns, data, scroll, ...restProps } = props
+  const { columns, data, scroll, emptyCellRender, ...restProps } = props
 
   const isAutoHeight = scroll?.y === 'auto' // 自动高度
   const [autoHeight, setAutoHeight] = useState<number | true>(true)
@@ -85,8 +86,8 @@ function Table<T = any>(
     <ArcoTable
       {...restProps}
       ref={tableRef}
-      columns={columns}
       data={data}
+      columns={transformColumn<T>(columns ?? [], { emptyCellRender })}
       scroll={{ ...scroll, y: isAutoHeight ? autoHeight : scroll?.y }}
     />
   )

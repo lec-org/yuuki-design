@@ -12,14 +12,15 @@
     "upgrade": "modern upgrade"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18",
     "@arco-design/web-react": ">=2.53.0",
     "@formily/core": ">=2.2.0",
-    "@formily/react": ">=2.2.0"
+    "@formily/react": ">=2.2.0",
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "dependencies": {
     "ahooks": "^3.7.8",
+    "dayjs": "^1.11.10",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {

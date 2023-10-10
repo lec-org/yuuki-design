@@ -4,7 +4,8 @@ import { Table, ColumnProps } from 'yuuki-design'
 const columns: ColumnProps<DataType>[] = [
   {
     title: '商品编号',
-    dataIndex: 'no'
+    dataIndex: 'no',
+    width: 180
   },
   {
     title: '商品名',
@@ -42,18 +43,17 @@ const data: DataType[] = Array.from(new Array(20).keys()).map((item) => ({
   no: `ISBN${Date.now() + item}`,
   name: `超长超长超长超长超长名字超长超长超长名字${item + 1}`,
   price: Number(10000 + 10000 * Math.random()),
-  createTime: new Date(Date.now() + item * 24 * 3600 * 1000).toDateString(),
+  // createTime: new Date(Date.now() + item * 24 * 3600 * 1000).toDateString(),
+  createTime: '',
   address: `番斗大街番斗花园${item + 1}号`,
   email: `name${item + 1}@example.com`
 }))
 
 const App: React.FC = () => {
   return (
-    <>
-      <div style={{ height: 400 }}>
-        <Table columns={columns} data={data} scroll={{ y: 'auto' }} />
-      </div>
-    </>
+    <div style={{ height: 400 }}>
+      <Table columns={columns} data={data} scroll={{ y: 'auto' }} />
+    </div>
   )
 }
 

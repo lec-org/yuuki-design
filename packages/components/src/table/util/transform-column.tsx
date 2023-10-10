@@ -19,10 +19,10 @@ export function transformColumn<T>(
       render,
       ...rest
     } = column
-    const { emptyCellRender = () => '-' } = option
+    const { emptyCellRender = defaultEmptyRender } = option
 
     const columnRender: TableCellRender = (col, item, index) => {
-      if (!col) {
+      if (!col && !isNumber(col)) {
         // 空值占位
         return emptyCellRender(col, item, index)
       }
@@ -56,6 +56,7 @@ export function transformColumn<T>(
           result = Math.max(Math.min(result, 1), 0)
           result = `${(result * 100).toFixed(2)}%`
         }
+        result = formatText ? formatText(result.toString()) : result
 
         return <TableCellText ellipsis={ellipsis}>{result}</TableCellText>
       }
@@ -67,6 +68,10 @@ export function transformColumn<T>(
   })
 
   return tableColumns
+}
+
+const defaultEmptyRender = () => {
+  return <div style={{ textIndent: '1em' }}>--</div>
 }
 
 const TableCellText: React.FC<{

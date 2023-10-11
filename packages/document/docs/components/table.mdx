@@ -16,6 +16,12 @@ table 的 `srcoll`中，传入 `y: 'auto'`即可自适应容器高度，请保�
 
 ## 列配置扩展
 
-基于 arco 的`tableColumnProps`扩展了新的配置`ColumnProps`，添加文字省略tooltip、自动处理数字等
+基于 arco 的`tableColumnProps`扩展了新的配置`ColumnProps`，添加文字省略 tooltip、自动处理数字等
 
 <code src='~/table/column-extends.tsx' />
+
+## 勾选项与插槽
+
+基于 arco 的`ref`扩展了可以获得勾选项键值的方法（无需再手动设置变量接收值），添加了一些区域的插槽
+
+<code src='~/table/selection.tsx' />

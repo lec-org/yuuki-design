@@ -2,14 +2,14 @@ import React, { useRef, useState } from 'react'
 import { isFunction, isNumber, isString } from 'lodash-es'
 import dayjs from 'dayjs'
 import { TableColumnProps, Tooltip } from '@arco-design/web-react'
-import { ColumnProps, ColumnValue, TableCellRender } from '../type'
+import { ColumnProps, ColumnValue, TableCellRender, TableProps } from '../type'
 
 const stringType: ColumnValue[] = ['text', 'date', 'dateTime']
 const numberType: ColumnValue[] = ['digit', 'decimal', 'percent']
 
-export function transformColumn<T>(
+export function useColumns<T>(
   columns: ColumnProps<T>[],
-  option: { emptyCellRender?: TableCellRender }
+  props: TableProps<T>
 ): TableColumnProps<T>[] {
   const tableColumns = columns.map<TableColumnProps>((column) => {
     const {
@@ -19,7 +19,7 @@ export function transformColumn<T>(
       render,
       ...rest
     } = column
-    const { emptyCellRender = defaultEmptyRender } = option
+    const { emptyCellRender = defaultEmptyRender } = props
 
     const columnRender: TableCellRender = (col, item, index) => {
       if (!col && !isNumber(col)) {

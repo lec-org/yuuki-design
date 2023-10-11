@@ -1,3 +1,4 @@
+import { Key, ReactElement } from 'react'
 import {
   TableProps as ArcoTableProps,
   TableColumnProps,
@@ -10,6 +11,17 @@ export interface TableProps<T = any>
    * @description 单元格的值为空时显示的内容
    */
   emptyCellRender?: TableCellRender
+  /**
+   * @description 表格周围的插槽区域
+   */
+  slotArea?: {
+    topLeft?: () => ReactElement
+    topRight?: () => ReactElement
+  }
+  /**
+   * @description 开启列配置
+   */
+  config?: boolean
 }
 
 type DateType = 'date' | 'dateTime'
@@ -30,5 +42,13 @@ export interface ColumnProps<T = any> extends TableColumnProps<T> {
     | ((col: any, item: any, index: number) => ColumnValue)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface TableRef extends TableInstance {}
+export interface TableRef<T = any> extends TableInstance {
+  /**
+   * @description 获取选中项的key值
+   */
+  getSelectionRowKeys: () => Key[]
+  /**
+   * @description 获取选中项
+   */
+  getSelectionRows: () => T[]
+}

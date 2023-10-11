@@ -1,3 +1,65 @@
 @import '../../style/theme.less';
 
 @table-prefix-cls: ~'@{prefix}-table';
+
+.@{table-prefix-cls}-toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+
+  .@{table-prefix-cls}-slot-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 12px;
+    flex: 1;
+  }
+
+  .@{table-prefix-cls}-config {
+    display: flex;
+    align-items: center;
+
+    &-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      height: 32px;
+      font-size: 16px;
+      cursor: pointer;
+
+      &:hover {
+        color: rgb(var(--primary-6));
+      }
+    }
+  }
+}
+
+.@{table-prefix-cls}-setting-menu {
+  width: 200px;
+  padding: 12px;
+  border: 1px solid var(--color-fill-3);
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-bg-popup);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+    font-weight: 600;
+  }
+
+  &-list {
+    padding-block-start: 8px;
+  }
+
+  .@{prefix}-tree-node {
+    padding-left: 5px;
+
+    &-switcher {
+      display: none;
+    }
+  }
+}

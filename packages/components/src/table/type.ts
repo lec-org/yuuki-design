@@ -9,13 +9,6 @@ export type ConfigItem = 'setting' | 'refresh'
 export type TableCellRender = NonNullable<TableColumnProps['render']>
 export interface TableProps<T = any>
   extends Omit<ArcoTableProps<T>, 'components' | 'renderPagination'> {
-  /**
-   * @description 单元格的值为空时显示的内容
-   */
-  emptyCellRender?: TableCellRender
-  /**
-   * @description 表格周围的插槽区域
-   */
   slotArea?: {
     topLeft?: () => ReactElement
     topRight?: () => ReactElement
@@ -24,6 +17,19 @@ export interface TableProps<T = any>
    * @description 开启列配置
    */
   config?: boolean | ConfigItem[]
+  /**
+   * @description 操作列列配置
+   */
+  opreationColumn?: TableColumnProps & {
+    render: (item: T, index: number) => ReactElement
+  }
+  /**
+   * @description 单元格的值为空时显示的内容
+   */
+  emptyCellRender?: TableCellRender
+  /**
+   * @description 表格周围的插槽区域
+   */
 }
 
 type DateType = 'date' | 'dateTime'

@@ -4,69 +4,50 @@ import { Table, ColumnProps, TableRef, Button } from 'yuuki-design'
 
 const columns: ColumnProps<DataType>[] = [
   {
-    title: 'Name',
-    dataIndex: 'name'
+    title: '商品编号',
+    dataIndex: 'no',
+    width: 180
   },
   {
-    title: 'Identity',
-    dataIndex: 'identity',
+    title: '商品名',
+    dataIndex: 'name',
+    width: 180
+  },
+  {
+    title: '商品价格',
+    dataIndex: 'price',
+    valueType: 'digit'
+  },
+  {
+    title: '创建时间',
+    valueType: 'date',
+    dataIndex: 'createTime',
     hideDefault: true
   },
   {
-    title: 'Address',
+    title: '送货地址',
     dataIndex: 'address'
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email'
   }
 ]
 
 interface DataType {
   key: React.Key
+  no: string
   name: string
-  identity: string
+  createTime: string
   address: string
   email: string
 }
 
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'Asahi',
-    identity: 'maid',
-    address: 'Paris, France',
-    email: 'asahi.kokura@example.com'
-  },
-  {
-    key: '2',
-    name: 'Resona',
-    identity: 'designer',
-    address: 'Paris, France',
-    email: 'resona.ookura@example.com'
-  },
-  {
-    key: '3',
-    name: 'Luna',
-    identity: 'designer',
-    address: 'Tokyo, Japan',
-    email: 'luna.sakurakouji@example.com'
-  },
-  {
-    key: '4',
-    name: 'Meryl',
-    identity: 'designer',
-    address: 'Paris, France',
-    email: 'meryl.lynch@example.com'
-  },
-  {
-    key: '5',
-    name: 'Bluette',
-    identity: 'model',
-    address: 'Paris, France',
-    email: 'bluette-nicolette.planquette@example.com'
-  }
-]
+const data: DataType[] = Array.from(new Array(20).keys()).map((item) => ({
+  key: item,
+  no: `ISBN${Date.now() + item}`,
+  name: `超长超长超长超长超长名字超长超长超长名字${item + 1}`,
+  price: Number(10000 + 10000 * Math.random()),
+  createTime: new Date(Date.now() + item * 24 * 3600 * 1000).toDateString(),
+  address: `番斗大街番斗花园${item + 1}号`,
+  email: `name${item + 1}@example.com`
+}))
 
 const App: React.FC = () => {
   const tableRef = useRef<TableRef>(null)
@@ -75,6 +56,7 @@ const App: React.FC = () => {
     <div style={{ height: 400 }}>
       <Table
         config
+        rowKey='no'
         ref={tableRef}
         columns={columns}
         data={data}

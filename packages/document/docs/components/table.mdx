@@ -20,8 +20,18 @@ table 的 `srcoll`中，传入 `y: 'auto'`即可自适应容器高度，请保�
 
 <code src='~/table/column-extends.tsx' />
 
-## 勾选项与插槽
+## 勾选项、配置项和插槽
 
-基于 arco 的`ref`扩展了可以获得勾选项键值的方法（无需再手动设置变量接收值），添加了一些区域的插槽
+基于 arco 的`ref`扩展了可以获得勾选项键值的方法（无需再手动设置变量接收值）
 
-<code src='~/table/selection.tsx' />
+添加了 `slotArea` 参数用于在指定区域渲染自定义内容
+
+添加了 `config` 参数用于修改表格列以及刷新表格等操作
+
+<code src='~/table/table-config.tsx' />
+
+## 操作列
+
+添加了 `opreationColumn` 参数用于更便捷的渲染操作列
+
+<code src='~/table/opreation.tsx' />

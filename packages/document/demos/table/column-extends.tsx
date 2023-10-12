@@ -43,8 +43,7 @@ const data: DataType[] = Array.from(new Array(20).keys()).map((item) => ({
   no: `ISBN${Date.now() + item}`,
   name: `超长超长超长超长超长名字超长超长超长名字${item + 1}`,
   price: Number(10000 + 10000 * Math.random()),
-  // createTime: new Date(Date.now() + item * 24 * 3600 * 1000).toDateString(),
-  createTime: '',
+  createTime: new Date(Date.now() + item * 24 * 3600 * 1000).toDateString(),
   address: `番斗大街番斗花园${item + 1}号`,
   email: `name${item + 1}@example.com`
 }))

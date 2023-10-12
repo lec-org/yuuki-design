@@ -11,7 +11,7 @@ export function useColumns<T>(
   columns: ColumnProps<T>[],
   props: TableProps<T>
 ): TableColumnProps<T>[] {
-  const tableColumns = columns.map<TableColumnProps>((column) => {
+  const tableColumns = columns.map<TableColumnProps<T>>((column) => {
     const {
       ellipsis = true,
       valueType = 'text',
@@ -66,6 +66,14 @@ export function useColumns<T>(
 
     return { ...rest, ellipsis, render: render ? render : columnRender }
   })
+
+  const { opreationColumn } = props
+  if (opreationColumn) {
+    tableColumns.push({
+      ...opreationColumn,
+      render: (_, item, index) => opreationColumn.render(item, index)
+    })
+  }
 
   return tableColumns
 }

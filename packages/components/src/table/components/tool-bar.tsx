@@ -1,4 +1,5 @@
 import { useContext, useMemo } from 'react'
+import { isBoolean } from 'lodash-es'
 import {
   Checkbox,
   ConfigProvider,
@@ -7,33 +8,49 @@ import {
   Tree
 } from '@arco-design/web-react'
 import { IconRefresh, IconSettings } from '@arco-design/web-react/icon'
-import { ColumnProps, TableProps } from '../type'
+import { ColumnProps, ConfigItem, TableProps } from '../type'
 
 const { ConfigContext } = ConfigProvider
 
+type DisplayedColumn<T> = { column: ColumnProps<T>; visible: boolean }
+
 export interface ToolBarProps<T>
-  extends Pick<TableProps<T>, 'columns' | 'config' | 'slotArea'> {
-  displayedColumns: ColumnProps<T>[]
-  onDisplayChange: (columns: ColumnProps<T>[]) => void
+  extends Pick<
+    TableProps<T>,
+    'columns' | 'config' | 'slotArea' | 'rowSelection'
+  > {
+  displayedColumns: DisplayedColumn<T>[]
+  onDisplayChange: (columns: DisplayedColumn<T>[]) => void
 }
 
 function ToolBar<T>(props: ToolBarProps<T>) {
-  const { slotArea, config, columns, displayedColumns, onDisplayChange } = props
+  const {
+    slotArea,
+    config,
+    columns,
+    rowSelection,
+    displayedColumns,
+    onDisplayChange
+  } = props
   const { topLeft, topRight } = slotArea || {}
 
   const { getPrefixCls } = useContext(ConfigContext)
   const prefixCls = getPrefixCls!('table')
 
   const { checkAll, indeterminate, checkedKeys } = useMemo(() => {
+    const visibleColumn = displayedColumns
+      .filter(({ visible }) => visible)
+      .map(({ column }) => column)
+
     const checkAll = Boolean(
-      columns?.length && displayedColumns.length === columns.length
+      columns?.length && visibleColumn.length === columns.length
     ) // 全选
     const indeterminate = Boolean(
       columns?.length &&
-        displayedColumns.length &&
-        displayedColumns.length !== columns.length
+        visibleColumn.length &&
+        visibleColumn.length !== columns.length
     ) // 半选
-    const checkedKeys = displayedColumns.map((column) => getColumnKey(column))
+    const checkedKeys = visibleColumn.map((column) => getColumnKey(column))
 
     return { checkAll, indeterminate, checkedKeys }
   }, [columns?.length, displayedColumns])
@@ -48,43 +65,97 @@ function ToolBar<T>(props: ToolBarProps<T>) {
             onChange={(checked) =>
               onDisplayChange(
                 checked
-                  ? getColumnsByKeys(
-                      columns,
-                      (columns || []).map((column) => getColumnKey(column))
-                    )
-                  : []
+                  ? displayedColumns.map(({ column }) => ({
+                      column,
+                      visible: true
+                    }))
+                  : displayedColumns.map(({ column }) => ({
+                      column,
+                      visible: false
+                    }))
               )
             }
           >
             列展示
           </Checkbox>
-          <Link hoverable={false}>重置</Link>
+          <Link
+            hoverable={false}
+            onClick={() => {
+              onDisplayChange(
+                (columns || []).map((column: ColumnProps<T>) => ({
+                  column,
+                  visible: !column.hideDefault
+                }))
+              )
+            }}
+          >
+            重置
+          </Link>
         </div>
         <Tree
           blockNode
           checkable
           draggable
           checkedKeys={checkedKeys}
-          onCheck={(keys) => onDisplayChange(getColumnsByKeys(columns, keys))}
+          onCheck={(keys) =>
+            onDisplayChange(
+              displayedColumns.map(({ column }) => ({
+                column,
+                visible: keys.includes(getColumnKey(column))
+              }))
+            )
+          }
           allowDrop={({ dropPosition }) => Boolean(dropPosition)}
+          onDrop={({ dragNode, dropNode, dropPosition }) => {
+            if (!dropPosition) {
+              return
+            }
+            const data = [...displayedColumns]
+            const dragIndex = data.findIndex(
+              ({ column }) => getColumnKey(column) === dragNode?.key
+            )
+            const dragItem = data[dragIndex]
+            data.splice(dragIndex, 1)
+            const dropIndex = data.findIndex(
+              ({ column }) => getColumnKey(column) === dropNode?.key
+            )
+            data.splice(
+              dropPosition < 0 ? dropIndex : dropIndex + 1,
+              0,
+              dragItem
+            )
+            onDisplayChange(data)
+          }}
           className={`${prefixCls}-setting-menu-list`}
         >
-          {(columns || []).map(({ title, key, dataIndex }) => (
+          {displayedColumns?.map(({ column: { title, key, dataIndex } }) => (
             <Tree.Node key={key ?? dataIndex} title={title} />
           ))}
         </Tree>
       </div>
     )
   }, [
+    prefixCls,
     checkAll,
-    checkedKeys,
-    columns,
     indeterminate,
+    checkedKeys,
     onDisplayChange,
-    prefixCls
+    displayedColumns,
+    columns
   ])
 
-  if (!topLeft && !topRight && !config) {
+  const onRefresh = () => {
+    rowSelection?.onChange?.([], [])
+  }
+
+  const displayedConfigItems = useMemo(() => {
+    if (isBoolean(config)) {
+      return config ? configItems : []
+    }
+    return config ?? []
+  }, [config])
+
+  if (!topLeft && !topRight && !displayedConfigItems.length) {
     return <></>
   }
 
@@ -94,16 +165,20 @@ function ToolBar<T>(props: ToolBarProps<T>) {
         <div className={`${prefixCls}-slot-top-left`}>{topLeft?.()}</div>
         <div className={`${prefixCls}-slot-top-right`}>{topRight?.()}</div>
       </div>
-      {config && (
+      {displayedConfigItems.length > 0 && (
         <div className={`${prefixCls}-config`}>
-          <div className={`${prefixCls}-config-item`}>
-            <IconRefresh />
-          </div>
-          <Dropdown droplist={settingMenu} trigger='click' position='br'>
-            <div className={`${prefixCls}-config-item`}>
-              <IconSettings />
+          {displayedConfigItems.includes('refresh') && (
+            <div className={`${prefixCls}-config-item`} onClick={onRefresh}>
+              <IconRefresh />
             </div>
-          </Dropdown>
+          )}
+          {displayedConfigItems.includes('setting') && (
+            <Dropdown droplist={settingMenu} trigger='click' position='br'>
+              <div className={`${prefixCls}-config-item`}>
+                <IconSettings />
+              </div>
+            </Dropdown>
+          )}
         </div>
       )}
     </div>
@@ -112,12 +187,8 @@ function ToolBar<T>(props: ToolBarProps<T>) {
 
 export default ToolBar
 
+const configItems: ConfigItem[] = ['setting', 'refresh'] // 可提供的配置项
+
 function getColumnKey<T>(column: ColumnProps<T>) {
   return String(column.key ?? column.dataIndex)
-}
-
-function getColumnsByKeys<T>(columns: ColumnProps<T>[] = [], keys: string[]) {
-  return columns.filter(({ key, dataIndex }) =>
-    keys.includes(String(key ?? dataIndex))
-  )
 }

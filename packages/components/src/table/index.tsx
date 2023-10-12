@@ -13,7 +13,7 @@ function Table<T = any>(
   const { srcoll } = useAutoHeight(tableRef, props.scroll)
   const { rowSelection, getSelectionRowKeys, getSelectionRows } =
     useSelection(props)
-  const { columns, toolBar } = useToolBar(props)
+  const { columns, toolBar } = useToolBar({ ...props, rowSelection })
   const tableColumns = useColumns(columns, props)
 
   useImperativeHandle(ref, () => ({

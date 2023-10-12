@@ -5,6 +5,8 @@ import {
   TableInstance
 } from '@arco-design/web-react'
 
+export type ConfigItem = 'setting' | 'refresh'
+export type TableCellRender = NonNullable<TableColumnProps['render']>
 export interface TableProps<T = any>
   extends Omit<ArcoTableProps<T>, 'components' | 'renderPagination'> {
   /**
@@ -21,14 +23,12 @@ export interface TableProps<T = any>
   /**
    * @description 开启列配置
    */
-  config?: boolean
+  config?: boolean | ConfigItem[]
 }
 
 type DateType = 'date' | 'dateTime'
 type NumberType = 'digit' | 'decimal' | 'percent'
 export type ColumnValue = 'text' | DateType | NumberType
-export type TableCellRender = NonNullable<TableColumnProps['render']>
-
 export interface ColumnProps<T = any> extends TableColumnProps<T> {
   /**
    * @description 只对column的值为string的单元格生效，格式化字符串
@@ -40,6 +40,10 @@ export interface ColumnProps<T = any> extends TableColumnProps<T> {
   valueType?:
     | ColumnValue
     | ((col: any, item: any, index: number) => ColumnValue)
+  /**
+   * @description 是否在初始化时隐藏列，只有开启table列配置才生效
+   */
+  hideDefault?: boolean
 }
 
 export interface TableRef<T = any> extends TableInstance {

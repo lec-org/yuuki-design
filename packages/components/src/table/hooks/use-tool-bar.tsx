@@ -1,26 +1,30 @@
 import { useState } from 'react'
 import ToolBar from '../components/tool-bar'
-import { TableProps } from '../type'
+import { ColumnProps, TableProps } from '../type'
 
 export function useToolBar<T>(props: TableProps<T>) {
-  const { slotArea, config, columns = [] } = props
+  const { slotArea, config, rowSelection, columns = [] } = props
 
-  const [displayedColumns, setDisplayedColumns] = useState(columns)
+  const [displayedColumns, setDisplayedColumns] = useState(
+    columns.map((column: ColumnProps<T>) => ({
+      column,
+      visible: !column.hideDefault
+    }))
+  )
 
-  if (config) {
-    return {
-      columns: displayedColumns,
-      toolBar: (
-        <ToolBar<T>
-          slotArea={slotArea}
-          config={config}
-          columns={columns}
-          displayedColumns={displayedColumns ?? []}
-          onDisplayChange={setDisplayedColumns}
-        />
-      )
-    }
+  return {
+    columns: displayedColumns
+      .filter(({ visible }) => visible)
+      .map(({ column }) => column),
+    toolBar: (
+      <ToolBar<T>
+        slotArea={slotArea}
+        config={config}
+        columns={columns}
+        rowSelection={rowSelection}
+        displayedColumns={displayedColumns}
+        onDisplayChange={setDisplayedColumns}
+      />
+    )
   }
-
-  return { columns, toolBar: null }
 }

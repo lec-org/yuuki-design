@@ -9,7 +9,8 @@ const columns: ColumnProps<DataType>[] = [
   },
   {
     title: 'Identity',
-    dataIndex: 'identity'
+    dataIndex: 'identity',
+    hideDefault: true
   },
   {
     title: 'Address',

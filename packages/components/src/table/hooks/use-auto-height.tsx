@@ -32,7 +32,7 @@ export const useAutoHeight = (
       const tableHeight =
         wrapper.clientHeight -
         Array.from(wrapper.children).reduce((pre, child) => {
-          if (Object.is(table, child)) {
+          if (child.classList.contains(prefixCls)) {
             return pre
           }
           const style = getComputedStyle(child)

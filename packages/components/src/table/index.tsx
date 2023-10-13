@@ -1,6 +1,12 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
 import { Table as ArcoTable, TableInstance } from '@arco-design/web-react'
-import { useAutoHeight, useColumns, useSelection, useToolBar } from './hooks'
+import {
+  useAutoHeight,
+  useColumns,
+  useResizable,
+  useSelection,
+  useToolBar
+} from './hooks'
 import { TableProps, TableRef } from './type'
 
 function Table<T = any>(
@@ -15,6 +21,10 @@ function Table<T = any>(
     useSelection(props)
   const { columns, toolBar } = useToolBar({ ...props, rowSelection })
   const tableColumns = useColumns(columns, props)
+  const { components, columns: resizableColumns } = useResizable(
+    tableColumns,
+    props
+  )
 
   useImperativeHandle(ref, () => ({
     ...tableRef.current!,
@@ -29,7 +39,8 @@ function Table<T = any>(
         {...restProps}
         ref={tableRef}
         data={data}
-        columns={tableColumns}
+        components={components}
+        columns={resizableColumns}
         scroll={srcoll}
         rowSelection={rowSelection}
       />

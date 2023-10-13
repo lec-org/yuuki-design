@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { isFunction, isNumber, isString } from 'lodash-es'
 import dayjs from 'dayjs'
 import { TableColumnProps, Tooltip } from '@arco-design/web-react'
@@ -11,64 +11,66 @@ export function useColumns<T>(
   columns: ColumnProps<T>[],
   props: TableProps<T>
 ): TableColumnProps<T>[] {
-  const tableColumns = columns.map<TableColumnProps<T>>((column) => {
-    const {
-      ellipsis = true,
-      valueType = 'text',
-      formatText,
-      render,
-      ...rest
-    } = column
-    const { emptyCellRender = defaultEmptyRender } = props
+  const { opreationColumn, emptyCellRender = defaultEmptyRender } = props
 
-    const columnRender: TableCellRender = (col, item, index) => {
-      if (!col && !isNumber(col)) {
-        // 空值占位
-        return emptyCellRender(col, item, index)
+  const tableColumns = useMemo(() => {
+    return columns.map<TableColumnProps<T>>((column) => {
+      const {
+        ellipsis = true,
+        valueType = 'text',
+        formatText,
+        render,
+        ...rest
+      } = column
+
+      const columnRender: TableCellRender = (col, item, index) => {
+        if (!col && !isNumber(col)) {
+          // 空值占位
+          return emptyCellRender(col, item, index)
+        }
+
+        const type = isFunction(valueType)
+          ? valueType(col, item, index)
+          : valueType
+
+        if (isString(col) && stringType.includes(type)) {
+          let text = col
+          if (type === 'date') {
+            text = dayjs(text).format('YYYY-MM-DD')
+          } else if (type === 'dateTime') {
+            text = dayjs(text).format('YYYY-MM-DD HH:mm:ss')
+          }
+          text = formatText ? formatText(text) : text
+
+          return <TableCellText ellipsis={ellipsis}>{text}</TableCellText>
+        } else if (isNumber(col) && numberType.includes(type)) {
+          let result: string | number = col
+          if (type === 'digit') {
+            result = result.toFixed(2)
+            const reg =
+              result.indexOf('.') > -1
+                ? /(\d)(?=(\d{3})+\.)/g
+                : /(\d)(?=(\d{3})+$)/g
+            result = result.replace(reg, '$1,')
+          } else if (type === 'decimal') {
+            result = result.toFixed(2)
+          } else if (type === 'percent') {
+            result = Math.max(Math.min(result, 1), 0)
+            result = `${(result * 100).toFixed(2)}%`
+          }
+          result = formatText ? formatText(result.toString()) : result
+
+          return <TableCellText ellipsis={ellipsis}>{result}</TableCellText>
+        }
+
+        return col
       }
 
-      const type = isFunction(valueType)
-        ? valueType(col, item, index)
-        : valueType
+      return { ...rest, ellipsis, render: render ? render : columnRender }
+    })
+  }, [columns, emptyCellRender])
 
-      if (isString(col) && stringType.includes(type)) {
-        let text = col
-        if (type === 'date') {
-          text = dayjs(text).format('YYYY-MM-DD')
-        } else if (type === 'dateTime') {
-          text = dayjs(text).format('YYYY-MM-DD HH:mm:ss')
-        }
-        text = formatText ? formatText(text) : text
-
-        return <TableCellText ellipsis={ellipsis}>{text}</TableCellText>
-      } else if (isNumber(col) && numberType.includes(type)) {
-        let result: string | number = col
-        if (type === 'digit') {
-          result = result.toFixed(2)
-          const reg =
-            result.indexOf('.') > -1
-              ? /(\d)(?=(\d{3})+\.)/g
-              : /(\d)(?=(\d{3})+$)/g
-          result = result.replace(reg, '$1,')
-        } else if (type === 'decimal') {
-          result = result.toFixed(2)
-        } else if (type === 'percent') {
-          result = Math.max(Math.min(result, 1), 0)
-          result = `${(result * 100).toFixed(2)}%`
-        }
-        result = formatText ? formatText(result.toString()) : result
-
-        return <TableCellText ellipsis={ellipsis}>{result}</TableCellText>
-      }
-
-      return col
-    }
-
-    return { ...rest, ellipsis, render: render ? render : columnRender }
-  })
-
-  const { opreationColumn } = props
-  if (opreationColumn) {
+  if (opreationColumn && columns.length) {
     tableColumns.push({
       ...opreationColumn,
       render: (_, item, index) => opreationColumn.render(item, index)

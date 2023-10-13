@@ -9,6 +9,9 @@ export type ConfigItem = 'setting' | 'refresh'
 export type TableCellRender = NonNullable<TableColumnProps['render']>
 export interface TableProps<T = any>
   extends Omit<ArcoTableProps<T>, 'components' | 'renderPagination'> {
+  /**
+   * @description 表格周围的插槽区域
+   */
   slotArea?: {
     topLeft?: () => ReactElement
     topRight?: () => ReactElement
@@ -28,8 +31,9 @@ export interface TableProps<T = any>
    */
   emptyCellRender?: TableCellRender
   /**
-   * @description 表格周围的插槽区域
+   * @description 是否可改变列尺寸
    */
+  resizable?: boolean
 }
 
 type DateType = 'date' | 'dateTime'

@@ -21,7 +21,8 @@
   "dependencies": {
     "ahooks": "^3.7.8",
     "dayjs": "^1.11.10",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "react-resizable": "^3.0.5"
   },
   "devDependencies": {
     "@arco-design/web-react": "^2.53.2",
@@ -35,6 +36,7 @@
     "@types/lodash-es": "^4.17.9",
     "@types/node": "~16.11.7",
     "@types/react": "~18.0.26",
+    "@types/react-resizable": "^3.0.5",
     "husky": "~8.0.1",
     "lint-staged": "~13.1.0",
     "prettier": "~2.8.1",

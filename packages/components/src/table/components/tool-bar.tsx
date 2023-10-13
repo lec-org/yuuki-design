@@ -145,6 +145,7 @@ function ToolBar<T>(props: ToolBarProps<T>) {
   ])
 
   const onRefresh = () => {
+    onDisplayChange([...displayedColumns]) // 仅刷新
     rowSelection?.onChange?.([], [])
   }
 

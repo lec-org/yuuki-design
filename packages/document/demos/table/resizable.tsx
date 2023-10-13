@@ -54,17 +54,14 @@ const data: DataType[] = Array.from(new Array(5).keys()).map((item) => ({
 
 const App: React.FC = () => {
   return (
-    <div style={{ height: 400 }}>
-      <Table
-        config
-        borderCell
-        resizable
-        rowKey='no'
-        data={data}
-        columns={columns}
-        scroll={{ y: 'auto' }}
-      />
-    </div>
+    <Table
+      config
+      borderCell
+      resizable
+      rowKey='no'
+      data={data}
+      columns={columns}
+    />
   )
 }
 

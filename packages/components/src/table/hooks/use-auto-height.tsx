@@ -1,4 +1,5 @@
-import { RefObject, useContext, useLayoutEffect, useState } from 'react'
+import { RefObject, useContext, useState } from 'react'
+import { useSize, useUpdateLayoutEffect } from 'ahooks'
 import { ConfigProvider, TableInstance } from '@arco-design/web-react'
 import { TableProps } from '../type'
 
@@ -13,7 +14,10 @@ export const useAutoHeight = (
   const { getPrefixCls } = useContext(ConfigContext)
   const prefixCls = getPrefixCls!('table')
 
-  useLayoutEffect(() => {
+  const wrapperSize = useSize(
+    () => tableRef.current?.getRootDomElement()?.parentElement
+  )
+  useUpdateLayoutEffect(() => {
     const table = tableRef.current?.getRootDomElement()
     const wrapper = table?.parentElement
     // table高度 = header高度 + body高度 + 分页器高度（若存在）
@@ -57,16 +61,12 @@ export const useAutoHeight = (
       setAutoHeight(bodyHeight > 0 ? bodyHeight : true)
     }
 
-    const observer = new ResizeObserver(computedTableHeight)
-
     if (isAutoHeight) {
-      wrapper && observer.observe(wrapper)
+      computedTableHeight()
+    } else {
+      setAutoHeight(true)
     }
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [isAutoHeight, prefixCls, tableRef])
+  }, [isAutoHeight, prefixCls, wrapperSize]) // 起一个ResizeObserver的作用
 
   return { srcoll: { ...scroll, y: isAutoHeight ? autoHeight : scroll?.y } }
 }

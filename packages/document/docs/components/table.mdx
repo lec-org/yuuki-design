@@ -10,7 +10,7 @@
 
 ## 自动高度
 
-table 的 `srcoll`中，传入 `y: 'auto'`即可自适应容器高度，请保证设置了父容器高度且容器中只有单个自适应 table，不然在一些情况无法正确计算
+table 的`srcoll`中，传入`y: 'auto'`即可自适应容器高度，请保证设置了父容器高度且容器中只有单个自适应 table，不然在一些情况无法正确计算
 
 <code src='~/table/auto-height.tsx' />
 
@@ -24,20 +24,22 @@ table 的 `srcoll`中，传入 `y: 'auto'`即可自适应容器高度，请保�
 
 基于 arco 的`ref`扩展了可以获得勾选项键值的方法（无需再手动设置变量接收值）
 
-添加了 `slotArea` 参数用于在指定区域渲染自定义内容
+添加了`slotArea`参数用于在指定区域渲染自定义内容
 
-添加了 `config` 参数用于修改表格列以及刷新表格等操作
+添加了`config`参数用于修改表格列以及刷新表格等操作
 
 <code src='~/table/table-config.tsx' />
 
 ## 操作列
 
-添加了 `opreationColumn` 参数用于更便捷的渲染操作列
+添加了`opreationColumn`参数用于更便捷的渲染操作列
 
 <code src='~/table/opreation.tsx' />
 
 ## 可伸缩列
 
-添加了 `resizable` 参数一键开启可伸缩列，内置`react-resizable`实现
+添加了`resizable`参数一键开启可伸缩列，内置`react-resizable`实现
+
+开启`borderCell`会更好的看见可操作区域
 
 <code src='~/table/resizable.tsx' />

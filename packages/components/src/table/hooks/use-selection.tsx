@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { isFunction } from 'lodash-es'
+import { getRowKey } from '../util'
 import { TableProps } from '../type'
 
 export function useSelection<T>(props: TableProps<T>) {
@@ -18,8 +18,8 @@ export function useSelection<T>(props: TableProps<T>) {
   const getSelectionRows = () => {
     return (data || []).filter((item) => {
       const { rowKey } = props
-      const key = (isFunction(rowKey) ? rowKey(item) : rowKey) || 'key'
-      return getSelectionRowKeys().includes((item as any)[key])
+      const key = getRowKey(rowKey, item)
+      return getSelectionRowKeys().includes(key)
     })
   }
 

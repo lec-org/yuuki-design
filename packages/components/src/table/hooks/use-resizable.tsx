@@ -38,7 +38,6 @@ export function useResizable<T>(
 
   const handleResize = (index: number): ResizableProps['onResize'] => {
     return (e, { size }) => {
-      console.log(size.width)
       window.getSelection()?.removeAllRanges()
       setResizableColumns((prevColumns) => {
         const nextColumns = [...prevColumns]

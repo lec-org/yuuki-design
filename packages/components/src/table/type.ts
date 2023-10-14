@@ -34,6 +34,14 @@ export interface TableProps<T = any>
    * @description 是否可改变列尺寸
    */
   resizable?: boolean
+  /**
+   * @description 是否开启行拖拽
+   */
+  draggable?: boolean
+  /**
+   *  @description 拖拽发生后的回调
+   */
+  onDragChange?: (data: T[]) => void
 }
 
 type DateType = 'date' | 'dateTime'

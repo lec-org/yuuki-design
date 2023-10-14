@@ -14,7 +14,7 @@ export function useColumns<T>(
   const { opreationColumn, emptyCellRender = defaultEmptyRender } = props
 
   const tableColumns = useMemo(() => {
-    return columns.map<TableColumnProps<T>>((column) => {
+    const nextColumns = columns.map<TableColumnProps<T>>((column) => {
       const {
         ellipsis = true,
         valueType = 'text',
@@ -68,14 +68,16 @@ export function useColumns<T>(
 
       return { ...rest, ellipsis, render: render ? render : columnRender }
     })
-  }, [columns, emptyCellRender])
 
-  if (opreationColumn && columns.length) {
-    tableColumns.push({
-      ...opreationColumn,
-      render: (_, item, index) => opreationColumn.render(item, index)
-    })
-  }
+    if (opreationColumn && columns.length) {
+      nextColumns.push({
+        ...opreationColumn,
+        render: (_, item, index) => opreationColumn.render(item, index)
+      })
+    }
+
+    return nextColumns
+  }, [columns, emptyCellRender, opreationColumn])
 
   return tableColumns
 }

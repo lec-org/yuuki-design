@@ -30,9 +30,11 @@ export const useAutoHeight = (
     )
 
     const computedTableHeight = () => {
-      if (!wrapper || !table || !container || !thead) {
+      const height = wrapperSize?.height
+      if (!height || !wrapper || !table || !container || !thead) {
         return
       }
+
       const tableHeight =
         wrapper.clientHeight -
         Array.from(wrapper.children).reduce((pre, child) => {

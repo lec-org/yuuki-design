@@ -8,6 +8,7 @@ import {
   Tree
 } from '@arco-design/web-react'
 import { IconRefresh, IconSettings } from '@arco-design/web-react/icon'
+import { getColumnKey } from '../util'
 import { ColumnProps, ConfigItem, TableProps } from '../type'
 
 const { ConfigContext } = ConfigProvider
@@ -189,7 +190,3 @@ function ToolBar<T>(props: ToolBarProps<T>) {
 export default ToolBar
 
 const configItems: ConfigItem[] = ['setting', 'refresh'] // 可提供的配置项
-
-function getColumnKey<T>(column: ColumnProps<T>) {
-  return String(column.key ?? column.dataIndex)
-}

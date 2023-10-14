@@ -25,13 +25,12 @@ const ResizeHandle = forwardRef<HTMLSpanElement, ResizeHandleProps>(
   }
 )
 
-export interface ResizableTitleProps
-  extends Pick<ResizableProps, 'width' | 'onResize'> {
-  onInit?: (size: { width: number; height: number }) => void // 用于计算自适应宽度
+export interface ResizableTitleProps extends Pick<ResizableProps, 'width'> {
+  onResize?: (e: unknown, data: Record<string, any>) => void // 用于计算自适应宽度
   [key: string]: any // 其它属性有但没有标类型的必要
 }
 const ResizableTitle: React.FC<ResizableTitleProps> = (props) => {
-  const { onInit, onResize, width, ...restProps } = props
+  const { onResize, width, ...restProps } = props
 
   const thRef = useRef<HTMLTableHeaderCellElement>(null)
   useLayoutEffect(() => {
@@ -39,9 +38,9 @@ const ResizableTitle: React.FC<ResizableTitleProps> = (props) => {
 
     if (th && isUndefined(width)) {
       const { clientWidth, clientHeight } = th
-      onInit?.({ width: clientWidth, height: clientHeight })
+      onResize?.(null, { size: { width: clientWidth, height: clientHeight } })
     }
-  }, [onInit, width])
+  }, [onResize, width])
 
   if (!width) {
     return <th ref={thRef} {...restProps} />

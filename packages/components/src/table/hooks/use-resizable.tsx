@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import { ResizableProps } from 'react-resizable'
 import {
   TableColumnProps,
   TableProps as ArcoTableProps
 } from '@arco-design/web-react'
-import ResizableTitle, { ResizableTitleProps } from '../components/resizable'
+import ResizableTitle from '../components/resizable'
 import { TableProps } from '../type'
 
 export function useResizable<T>(
@@ -26,8 +25,7 @@ export function useResizable<T>(
           ...column,
           onHeaderCell: (col: TableColumnProps<T>) => ({
             width: col.width,
-            onResize: handleResize(index),
-            onInit: handleInitSize(index)
+            onResize: handleResize(index)
           })
         }
       }
@@ -36,27 +34,18 @@ export function useResizable<T>(
     setResizableColumns(nextColumns)
   }, [columns])
 
-  const handleResize = (index: number): ResizableProps['onResize'] => {
-    return (e, { size }) => {
+  const handleResize = (index: number) => {
+    return (e: unknown, { size }: Record<string, any>) => {
       window.getSelection()?.removeAllRanges()
-      setResizableColumns((prevColumns) => {
-        const nextColumns = [...prevColumns]
-        nextColumns[index] = {
-          ...nextColumns[index],
-          width: Math.round(size.width)
-        }
-        return nextColumns
-      })
-    }
-  }
-  const handleInitSize = (index: number): ResizableTitleProps['onInit'] => {
-    return (size) => {
       setResizableColumns((prevColumns) => {
         if (index === prevColumns.length - 1) {
           return prevColumns
         }
         const nextColumns = [...prevColumns]
-        nextColumns[index] = { ...nextColumns[index], width: size.width }
+        nextColumns[index] = {
+          ...nextColumns[index],
+          width: Math.round(size.width)
+        }
         return nextColumns
       })
     }

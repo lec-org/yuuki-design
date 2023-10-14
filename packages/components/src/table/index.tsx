@@ -1,4 +1,5 @@
 import React, { forwardRef, useImperativeHandle, useRef } from 'react'
+import { merge } from 'lodash-es'
 import { Table as ArcoTable, TableInstance } from '@arco-design/web-react'
 import {
   useAutoHeight,
@@ -27,7 +28,7 @@ function Table<T = any>(
   const { components: draggableComponents, DraggableProvider } =
     useDraggable(props)
 
-  const components = { ...resizableComponents, ...draggableComponents }
+  const components = merge({}, resizableComponents, draggableComponents)
 
   useImperativeHandle(ref, () => ({
     ...tableRef.current!,

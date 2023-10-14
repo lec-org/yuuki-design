@@ -1,6 +1,6 @@
 import React, { forwardRef, useLayoutEffect, useRef } from 'react'
 import { Resizable, ResizableProps } from 'react-resizable'
-import { isNumber } from 'lodash-es'
+import { isUndefined } from 'lodash-es'
 
 interface ResizeHandleProps {
   handleAxis?: string
@@ -37,11 +37,9 @@ const ResizableTitle: React.FC<ResizableTitleProps> = (props) => {
   useLayoutEffect(() => {
     const th = thRef.current
 
-    if (th) {
+    if (th && isUndefined(width)) {
       const { clientWidth, clientHeight } = th
-      if (!isNumber(width)) {
-        onInit?.({ width: clientWidth, height: clientHeight })
-      }
+      onInit?.({ width: clientWidth, height: clientHeight })
     }
   }, [onInit, width])
 

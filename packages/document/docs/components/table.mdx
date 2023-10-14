@@ -59,3 +59,48 @@ table 的`srcoll`中，传入`y: 'auto'`即可自适应容器高度，请保证�
 开启所有增强功能的 table 演示
 
 <code src='~/table/pro-max.tsx' />
+
+## API
+
+继承了 [ArcoTable](https://arco.design/react/components/table#api) 的所有属性，重写以下属性
+
+<font size='4'>Table</font>
+
+| 参数名          | 描述                       | 类型                                                                           | 默认值 |
+| --------------- | -------------------------- | ------------------------------------------------------------------------------ | ------ |
+| slotArea        | 表格周围的插槽区域         | \{topLeft?: () => ReactElement, topRight?: () => ReactElement\}                | -      |
+| config          | 开启列配置                 | boolean \| ConfigItem[]                                                        | -      |
+| opreationColumn | 操作列列配置               | TableColumnProps\<T\> & \{ render: (item: T, index: number) => ReactElement \} | -      |
+| emptyCellRender | 单元格的值为空时显示的内容 | TableColumnProps['render']                                                     | -      |
+| resizable       | 是否可改变列尺寸           | boolean                                                                        | -      |
+| draggable       | 是否开启行拖拽             | boolean                                                                        | -      |
+| onDragChange    | 拖拽发生后的回调           | onDragChange?: (data: T[]) => void                                             | -      |
+
+<font size='4'>Column</font>
+
+| 参数名      | 描述                                                 | 类型                                                                 | 默认值 |
+| ----------- | ---------------------------------------------------- | -------------------------------------------------------------------- | ------ |
+| formatText  | 只对 column 的值为 string 的单元格生效，格式化字符串 | (text: string) => string                                             | -      |
+| valueType   | column 的数据格式，组件会做相应的处理                | ColumnValue \| ((col: any, item: any, index: number) => ColumnValue) | 'text' |
+| hideDefault | 是否在初始化时隐藏列，只有开启 table 列配置才生效    | boolean                                                              | -      |
+
+<font size='4'>Table Reference Type</font>
+
+| 参数名              | 描述                | 类型              | 默认值 |
+| ------------------- | ------------------- | ----------------- | ------ |
+| getSelectionRowKeys | 获取选中项的 key 值 | () => React.Key[] | -      |
+| getSelectionRows    | 获取选中项          | () => T[]         | -      |
+
+<font size='4'>ColumnValue</font>
+
+```ts
+type DateType = 'date' | 'dateTime'
+type NumberType = 'digit' | 'decimal' | 'percent'
+export type ColumnValue = 'text' | DateType | NumberType
+```
+
+<font size='4'>ConfigItem</font>
+
+```ts
+export type ConfigItem = 'setting' | 'refresh'
+```

@@ -54,6 +54,7 @@ export interface ColumnProps<T = any> extends TableColumnProps<T> {
   formatText?: (text: string) => string
   /**
    * @description column的数据格式，组件会做相应的处理
+   * @defaultValue 'text'
    */
   valueType?:
     | ColumnValue

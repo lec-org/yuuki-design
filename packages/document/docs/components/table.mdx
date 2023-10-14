@@ -43,3 +43,13 @@ table 的`srcoll`中，传入`y: 'auto'`即可自适应容器高度，请保证�
 开启`borderCell`会更好的看见可操作区域
 
 <code src='~/table/resizable.tsx' />
+
+## 拖拽排序
+
+添加了`draggable`参数一键开启行拖拽排序，内置`dnd-kit`实现
+
+::: warning
+由于`dnd-kit`的 bug，使用 **数字 0** 作为`rowKey`时会导致无法拖拽，请避免直接使用下标作为`rowKey`
+:::
+
+<code src='~/table/draggable.tsx' />

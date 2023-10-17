@@ -43,35 +43,32 @@ export default defineConfig({
     sidebar: {
       '/components': [
         {
-          text: '通用',
+          text: '常规组件',
           collapsed: false,
           collapsible: false,
           items: [
             {
               text: 'Button 按钮',
               link: '/components/button'
-            }
-          ]
-        },
-        {
-          text: '数据输入',
-          collapsed: false,
-          collapsible: false,
-          items: [
+            },
             {
               text: 'Select 选择器',
               link: '/components/select'
+            },
+            {
+              text: 'Table 表格',
+              link: '/components/table'
             }
           ]
         },
         {
-          text: '数据展示',
+          text: 'formily组件',
           collapsed: false,
           collapsible: false,
           items: [
             {
-              text: 'Table 表格',
-              link: '/components/table'
+              text: 'FormGrid 表单格栅',
+              link: '/components/form-grid'
             }
           ]
         }

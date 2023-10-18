@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { omit } from 'lodash-es'
 import { isVoidField } from '@formily/core'
 import { connect, mapProps, observer } from '@formily/react'
 import { ConfigProvider, Form, Tooltip } from '@arco-design/web-react'
@@ -9,16 +10,22 @@ const { ConfigContext } = ConfigProvider
 const { Item: ArcoFormItem } = Form
 
 const FormItem: React.FC<FormItemProps> = observer((props) => {
-  const { children, style, gridSpan, asterisk, label, ...restProps } = props
+  const { children, style, gridSpan, required, label, ...restProps } = props
 
   const { getPrefixCls } = useContext(ConfigContext)
   const prefixCls = getPrefixCls!('form-item')
 
-  const { className: gridClassName, colon } = useFormLayout(props)
+  const {
+    className: gridClassName,
+    asterisk,
+    layout,
+    ...formLayout
+  } = useFormLayout(props)
   const { containerRef, overflow } = useOverFlow()
 
   const gridStyle: React.CSSProperties = {
-    gridColumn: gridClassName ? `span ${gridSpan ?? 1} / auto` : 'unset'
+    gridColumn: gridClassName ? `span ${gridSpan ?? 1} / auto` : 'unset',
+    flexWrap: layout === 'horizontal' ? 'nowrap' : 'wrap'
   }
 
   const renderLabel = () => {
@@ -37,11 +44,12 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
 
   return (
     <ArcoFormItem
-      {...restProps}
+      {...omit(restProps, ['asterisk'])}
       style={{ ...gridStyle, ...style }}
-      required={asterisk}
+      required={required && asterisk}
       label={renderLabel()}
-      colon={colon}
+      layout={layout}
+      {...formLayout}
     >
       {children}
     </ArcoFormItem>
@@ -108,6 +116,7 @@ const FormItemComponent = connect(
 
     return {
       label: props.label || field.title,
+      required: field.required || props.required,
       help: takeMessage(),
       asterisk: takeAsterisk(),
       validateStatus: takeValidateStatus(),

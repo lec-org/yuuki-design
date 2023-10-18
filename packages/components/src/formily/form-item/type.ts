@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { FormItemProps as ArcoFormItemProps } from '@arco-design/web-react'
 
-export interface FormItemProps extends Omit<ArcoFormItemProps, 'required'> {
+export interface FormItemProps extends Omit<ArcoFormItemProps, 'layout'> {
   children?: ReactNode
   /**
    * @description ⽹格布局占宽
@@ -12,4 +12,9 @@ export interface FormItemProps extends Omit<ArcoFormItemProps, 'required'> {
    *  @defaultValue true
    */
   asterisk?: boolean
+  /**
+   * @description FormItem的布局方式
+   * @defaultValue horizontal
+   */
+  layout?: 'horizontal' | 'vertical'
 }

@@ -31,7 +31,7 @@ export interface FormGridProps {
   /**
    * @description 传递给Item组件属性
    */
-  layout?: Partial<FormGridLayout>
+  formLayout?: Partial<FormGridLayout>
 }
 
 export interface FormGridItemProps {

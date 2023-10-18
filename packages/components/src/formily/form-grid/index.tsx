@@ -9,7 +9,7 @@ import { FormGridProps, FormGridItemProps } from './type'
 const { ConfigContext } = ConfigProvider
 
 const FormGrid: React.FC<FormGridProps> = observer((props) => {
-  const { children, className, style, layout } = props
+  const { children, className, style, formLayout } = props
 
   const { getPrefixCls } = useContext(ConfigContext) // 有默认值，无Provider也可以使用
   const prefixCls = getPrefixCls!('form-grid')
@@ -28,9 +28,12 @@ const FormGrid: React.FC<FormGridProps> = observer((props) => {
       className: getPrefixCls!('form-grid-item'),
       colon: true,
       asterisk: true,
-      ...layout
+      layout: 'horizontal',
+      labelCol: { flex: 'none' },
+      wrapperCol: { flex: 'auto' },
+      ...formLayout
     }),
-    [getPrefixCls, layout]
+    [getPrefixCls, formLayout]
   )
 
   return (

@@ -26,14 +26,14 @@ const App: React.FC = () => {
         <SchemaField>
           <SchemaField.Void
             x-component='FormGrid'
-            x-component-props={{ cols: 3, colGap: 12, rowGap: 6 }}
+            x-component-props={{ cols: 3, colGap: 8, rowGap: 4 }}
           >
             <SchemaField.String
               name='aaa'
               title='aaa'
               required
               x-decorator='FormItem'
-              x-decorator-props={{ span: 2 }}
+              x-decorator-props={{ gridSpan: 2 }}
               x-component='Input'
             />
             <SchemaField.String

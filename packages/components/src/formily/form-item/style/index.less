@@ -4,9 +4,13 @@
 @form-item-prefix-cls: ~'@{form-prefix-cls}-item';
 
 .@{form-item-prefix-cls} {
-  .@{form-prefix-cls}-label-item > label {
-    display: flex;
-    align-items: center;
+  & > .@{form-prefix-cls}-label-item {
+    padding-right: 8px !important;
+
+    & > label {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &-label-text {

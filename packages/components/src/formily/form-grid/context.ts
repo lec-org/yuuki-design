@@ -1,4 +1,5 @@
 import { createContext } from 'react'
+import { ColProps } from '@arco-design/web-react'
 
 export interface FormGridLayout {
   /**
@@ -16,6 +17,20 @@ export interface FormGridLayout {
    *  @defaultValue true
    */
   asterisk?: boolean
+  /**
+   * @description label的格栅col参数
+   * @defaultValue { flex: 'none' }
+   */
+  labelCol?: ColProps
+  /**
+   * @description 内容的格栅col参数
+   * @defaultValue { flex: 'auto' }
+   */
+  wrapperCol?: ColProps
+  /**
+   * @description FormItem采用布局
+   */
+  layout?: 'horizontal' | 'vertical'
 }
 
 export const FormGridLayoutContext = createContext<FormGridLayout>({})

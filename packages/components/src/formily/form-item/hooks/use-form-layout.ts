@@ -8,6 +8,9 @@ export function useFormLayout(props: FormItemProps) {
   return {
     className: layoutContext.className,
     colon: props.colon ?? layoutContext.colon,
-    asterisk: layoutContext.asterisk
+    asterisk: layoutContext.asterisk,
+    labelCol: props.labelCol ?? layoutContext.labelCol,
+    wrapperCol: props.wrapperCol ?? layoutContext.wrapperCol,
+    layout: props.layout ?? layoutContext.layout
   }
 }

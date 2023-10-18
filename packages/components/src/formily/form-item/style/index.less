@@ -1,0 +1,17 @@
+@import '../../../style/theme.less';
+
+@form-prefix-cls: ~'@{prefix}-form';
+@form-item-prefix-cls: ~'@{form-prefix-cls}-item';
+
+.@{form-item-prefix-cls} {
+  .@{form-prefix-cls}-label-item > label {
+    display: flex;
+    align-items: center;
+  }
+
+  &-label-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

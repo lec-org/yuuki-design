@@ -16,10 +16,6 @@ export interface FormGridLayout {
    *  @defaultValue true
    */
   asterisk?: boolean
-  /**
-   * @description label是否显示tooltip
-   */
-  tooltip?: boolean
 }
 
 export const FormGridLayoutContext = createContext<FormGridLayout>({})

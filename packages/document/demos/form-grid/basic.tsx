@@ -1,15 +1,84 @@
 import React from 'react'
-import { FormGrid } from 'yuuki-design'
+import { createForm } from '@formily/core'
+import { createSchemaField, FormProvider } from '@formily/react'
+import { Button, Input } from '@arco-design/web-react'
+import { FormGrid, FormItem } from 'yuuki-design'
 
-const { GridItem } = FormGrid
+const SchemaField = createSchemaField({
+  components: {
+    Input,
+    Button,
+    FormItem,
+    FormGrid
+  }
+})
+const form = createForm()
 
 const App: React.FC = () => {
+  const onSubmit = async () => {
+    const result = await form.submit()
+    console.log(result)
+  }
+
   return (
-    <FormGrid>
-      <GridItem>grid1</GridItem>
-      <GridItem>grid2</GridItem>
-      <GridItem>grid3</GridItem>
-    </FormGrid>
+    <>
+      <FormProvider form={form}>
+        <SchemaField>
+          <SchemaField.Void
+            x-component='FormGrid'
+            x-component-props={{ cols: 3, colGap: 12, rowGap: 6 }}
+          >
+            <SchemaField.String
+              name='aaa'
+              title='aaa'
+              required
+              x-decorator='FormItem'
+              x-decorator-props={{ span: 2 }}
+              x-component='Input'
+            />
+            <SchemaField.String
+              name='bbb'
+              title='bbb'
+              x-decorator='FormItem'
+              x-component='Input'
+            />
+            <SchemaField.String
+              name='ccc'
+              title='ccc'
+              x-decorator='FormItem'
+              x-component='Input'
+            />
+            <SchemaField.String
+              name='ddd'
+              title='ddd'
+              x-decorator='FormItem'
+              x-component='Input'
+            />
+            <SchemaField.String
+              name='eee'
+              title='eee'
+              x-decorator='FormItem'
+              x-component='Input'
+            />
+            <SchemaField.String
+              name='fff'
+              title='fff'
+              x-decorator='FormItem'
+              x-component='Input'
+            />
+            <SchemaField.String
+              name='ggg'
+              title='ggg'
+              x-decorator='FormItem'
+              x-component='Input'
+            />
+          </SchemaField.Void>
+        </SchemaField>
+      </FormProvider>
+      <Button type='primary' onClick={onSubmit}>
+        提交
+      </Button>
+    </>
   )
 }
 

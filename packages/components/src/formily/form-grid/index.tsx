@@ -3,13 +3,13 @@ import { observer } from '@formily/react'
 import cx from 'classnames'
 import { ConfigProvider } from '@arco-design/web-react'
 import { useResponsiveValue } from './hooks'
-import { FormGridLayout, FormGridLayoutContext, defaultValue } from './context'
+import { FormGridLayout, FormGridLayoutContext } from './context'
 import { FormGridProps, FormGridItemProps } from './type'
 
 const { ConfigContext } = ConfigProvider
 
 const FormGrid: React.FC<FormGridProps> = observer((props) => {
-  const { children, className, style } = props
+  const { children, className, style, layout } = props
 
   const { getPrefixCls } = useContext(ConfigContext) // 有默认值，无Provider也可以使用
   const prefixCls = getPrefixCls!('form-grid')
@@ -25,10 +25,12 @@ const FormGrid: React.FC<FormGridProps> = observer((props) => {
 
   const contextValue = useMemo<FormGridLayout>(
     () => ({
-      ...defaultValue,
-      prefixCls: getPrefixCls!('form-grid-item')
+      className: getPrefixCls!('form-grid-item'),
+      colon: true,
+      asterisk: true,
+      ...layout
     }),
-    [getPrefixCls]
+    [getPrefixCls, layout]
   )
 
   return (
@@ -46,7 +48,7 @@ const FormGrid: React.FC<FormGridProps> = observer((props) => {
 const GridItem: React.FC<FormGridItemProps> = (props) => {
   const { children, className, style, span = 1 } = props
 
-  const { prefixCls } = useContext(FormGridLayoutContext)
+  const { className: itemClassName } = useContext(FormGridLayoutContext)
 
   const gridStyle: React.CSSProperties = {
     gridColumn: `span ${span} / auto`
@@ -54,7 +56,7 @@ const GridItem: React.FC<FormGridItemProps> = (props) => {
 
   return (
     <div
-      className={cx(prefixCls, className)}
+      className={cx(itemClassName, className)}
       style={{ ...gridStyle, ...style }}
     >
       {children}

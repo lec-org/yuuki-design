@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode } from 'react'
+import { FormGridLayout } from './context'
 
 export type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
@@ -27,6 +28,10 @@ export interface FormGridProps {
    * @defaultValue 0
    */
   rowGap?: number | Record<Breakpoint, number>
+  /**
+   * @description 传递给Item组件属性
+   */
+  layout?: Partial<FormGridLayout>
 }
 
 export interface FormGridItemProps {

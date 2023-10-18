@@ -1,8 +1,8 @@
 import React from 'react'
 import { createForm } from '@formily/core'
 import { createSchemaField, FormProvider } from '@formily/react'
-import { Button, Input } from '@arco-design/web-react'
-import { FormGrid, FormItem } from 'yuuki-design'
+import { Input } from '@arco-design/web-react'
+import { Button, FormGrid, FormItem } from 'yuuki-design'
 
 const SchemaField = createSchemaField({
   components: {
@@ -31,7 +31,6 @@ const App: React.FC = () => {
             <SchemaField.String
               name='aaa'
               title='aaa'
-              required
               x-decorator='FormItem'
               x-decorator-props={{ gridSpan: 2 }}
               x-component='Input'

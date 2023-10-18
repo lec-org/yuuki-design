@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { isVoidField } from '@formily/core'
 import { connect, mapProps, observer } from '@formily/react'
-import { ConfigProvider, Form } from '@arco-design/web-react'
-import { useFormLayout } from './hooks'
+import { ConfigProvider, Form, Tooltip } from '@arco-design/web-react'
+import { useFormLayout, useOverFlow } from './hooks'
 import { FormItemProps } from './type'
 
 const { ConfigContext } = ConfigProvider
@@ -14,14 +14,25 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
   const { getPrefixCls } = useContext(ConfigContext)
   const prefixCls = getPrefixCls!('form-item')
 
-  const { className: gridClassName } = useFormLayout(props)
+  const { className: gridClassName, colon } = useFormLayout(props)
+  const { containerRef, overflow } = useOverFlow()
 
   const gridStyle: React.CSSProperties = {
     gridColumn: gridClassName ? `span ${gridSpan ?? 1} / auto` : 'unset'
   }
 
   const renderLabel = () => {
-    return <span className={`${prefixCls}-label-text`}>{label}</span>
+    return (
+      <span className={`${prefixCls}-label-text`} ref={containerRef}>
+        {overflow ? (
+          <Tooltip position='top' content={label}>
+            {label}
+          </Tooltip>
+        ) : (
+          label
+        )}
+      </span>
+    )
   }
 
   return (
@@ -30,6 +41,7 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
       style={{ ...gridStyle, ...style }}
       required={asterisk}
       label={renderLabel()}
+      colon={colon}
     >
       {children}
     </ArcoFormItem>

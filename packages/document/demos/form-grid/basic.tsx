@@ -2,14 +2,15 @@ import React from 'react'
 import { createForm } from '@formily/core'
 import { createSchemaField, FormProvider } from '@formily/react'
 import { Input } from '@arco-design/web-react'
-import { Button, FormGrid, FormItem } from 'yuuki-design'
+import { Button, FormLayout, FormGrid, FormItem } from 'yuuki-design'
 
 const SchemaField = createSchemaField({
   components: {
     Input,
     Button,
     FormItem,
-    FormGrid
+    FormGrid,
+    FormLayout
   }
 })
 const form = createForm()

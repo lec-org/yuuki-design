@@ -13,3 +13,29 @@
 不推荐使用，但是也能使用，不过使用这个相比使用 arco-grid 没有任何优势
 
 <code src='~/form-grid/origin.tsx' />
+
+## API
+
+<font size='4'>FormGrid</font>
+
+| 参数名     | 描述                 | 类型                                   | 默认值 |
+| ---------- | -------------------- | -------------------------------------- | ------ |
+| className  | 节点类名             | string \| string[]                     | -      |
+| style      | 节点样式             | React.CSSProperties                    | -      |
+| cols       | 每行展示的列数       | number \| Record\<Breakpoint, number\> | 3      |
+| colGap     | 列间距               | number \| Record\<Breakpoint, number\> | 0      |
+| rowGap     | 行间距               | number \| Record\<Breakpoint, number\> | 0      |
+
+<font size='4'>FormGrid.GridItem</font>
+
+| 参数名    | 描述       | 类型                | 默认值 |
+| --------- | ---------- | ------------------- | ------ |
+| className | 节点类名   | string \| string[]  | -      |
+| style     | 节点样式   | React.CSSProperties | -      |
+| span      | 跨越的格数 | number              | 1      |
+
+<font size='4'>Breakpoint</font>
+
+```ts
+type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+```

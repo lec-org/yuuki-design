@@ -15,17 +15,12 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
   const { getPrefixCls } = useContext(ConfigContext)
   const prefixCls = getPrefixCls!('form-item')
 
-  const {
-    className: gridClassName,
-    asterisk,
-    layout,
-    ...formLayout
-  } = useFormLayout(props)
+  const { gridClassName, asterisk, ...formLayout } = useFormLayout(props)
   const { containerRef, overflow } = useOverFlow()
 
   const gridStyle: React.CSSProperties = {
     gridColumn: gridClassName ? `span ${gridSpan ?? 1} / auto` : 'unset',
-    flexWrap: layout === 'horizontal' ? 'nowrap' : 'wrap'
+    flexWrap: formLayout.layout === 'horizontal' ? 'nowrap' : 'wrap'
   }
 
   const renderLabel = () => {
@@ -48,7 +43,6 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
       style={{ ...gridStyle, ...style }}
       required={required && asterisk}
       label={renderLabel()}
-      layout={layout}
       {...formLayout}
     >
       {children}

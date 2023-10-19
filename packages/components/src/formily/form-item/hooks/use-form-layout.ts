@@ -1,16 +1,19 @@
 import { useContext } from 'react'
-import { FormGridLayoutContext } from '../../form-grid/context'
+import { FormLayoutContext } from '../../form-layout/context'
+import { FormGridContext } from '../../form-grid/context'
 import { FormItemProps } from '../type'
 
 export function useFormLayout(props: FormItemProps) {
-  const layoutContext = useContext(FormGridLayoutContext)
+  const layoutContext = useContext(FormLayoutContext)
+  const gridContext = useContext(FormGridContext)
 
   return {
-    className: layoutContext.className,
-    colon: props.colon ?? layoutContext.colon,
+    ...gridContext,
+    colon: props.colon ?? layoutContext.colon ?? true,
     asterisk: layoutContext.asterisk,
-    labelCol: props.labelCol ?? layoutContext.labelCol,
-    wrapperCol: props.wrapperCol ?? layoutContext.wrapperCol,
-    layout: props.layout ?? layoutContext.layout
+    labelCol: props.labelCol ?? layoutContext.labelCol ?? { flex: 'none' },
+    wrapperCol: props.wrapperCol ??
+      layoutContext.wrapperCol ?? { flex: 'auto' },
+    layout: props.layout ?? layoutContext.layout ?? 'horizontal'
   }
 }

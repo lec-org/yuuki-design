@@ -1,15 +1,15 @@
-import React, { useContext, useMemo } from 'react'
+import React, { useContext } from 'react'
 import { observer } from '@formily/react'
 import cx from 'classnames'
 import { ConfigProvider } from '@arco-design/web-react'
 import { useResponsiveValue } from './hooks'
-import { FormGridLayout, FormGridLayoutContext } from './context'
+import { FormGridContext } from './context'
 import { FormGridProps, FormGridItemProps } from './type'
 
 const { ConfigContext } = ConfigProvider
 
 const FormGrid: React.FC<FormGridProps> = observer((props) => {
-  const { children, className, style, formLayout } = props
+  const { children, className, style } = props
 
   const { getPrefixCls } = useContext(ConfigContext) // 有默认值，无Provider也可以使用
   const prefixCls = getPrefixCls!('form-grid')
@@ -23,35 +23,24 @@ const FormGrid: React.FC<FormGridProps> = observer((props) => {
     gridTemplateColumns: `repeat(${cols}, minmax(0px, 1fr))`
   }
 
-  const contextValue = useMemo<FormGridLayout>(
-    () => ({
-      className: getPrefixCls!('form-grid-item'),
-      colon: true,
-      asterisk: true,
-      layout: 'horizontal',
-      labelCol: { flex: 'none' },
-      wrapperCol: { flex: 'auto' },
-      ...formLayout
-    }),
-    [getPrefixCls, formLayout]
-  )
-
   return (
     <div
       className={cx(prefixCls, className)}
       style={{ ...gridStyle, ...style }}
     >
-      <FormGridLayoutContext.Provider value={contextValue}>
+      <FormGridContext.Provider value={{ gridClassName: `${prefixCls}-item` }}>
         {children}
-      </FormGridLayoutContext.Provider>
+      </FormGridContext.Provider>
     </div>
   )
 })
 
 const GridItem: React.FC<FormGridItemProps> = (props) => {
-  const { children, className, style, span = 1 } = props
+  const { children, className, style } = props
 
-  const { className: itemClassName } = useContext(FormGridLayoutContext)
+  const { gridClassName } = useContext(FormGridContext)
+
+  const span = useResponsiveValue(props.span ?? 1)
 
   const gridStyle: React.CSSProperties = {
     gridColumn: `span ${span} / auto`
@@ -59,7 +48,7 @@ const GridItem: React.FC<FormGridItemProps> = (props) => {
 
   return (
     <div
-      className={cx(itemClassName, className)}
+      className={cx(gridClassName, className)}
       style={{ ...gridStyle, ...style }}
     >
       {children}

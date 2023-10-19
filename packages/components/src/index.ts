@@ -15,3 +15,6 @@ export type { FormGridProps, FormGridItemProps } from './formily/form-grid/type'
 
 export { default as FormItem } from './formily/form-item'
 export type { FormItemProps } from './formily/form-item/type'
+
+export { default as FormButtonGroup } from './formily/form-button-group'
+export type { FormButtonGroupProps } from './formily/form-button-group/type'

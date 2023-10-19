@@ -2,12 +2,14 @@ import React from 'react'
 import { createForm } from '@formily/core'
 import { FormProvider, createSchemaField } from '@formily/react'
 import { Input } from '@arco-design/web-react'
-import { Button, FormButtonGroup, FormItem, FormLayout } from 'yuuki-design'
+import { Button, FormItem, FormLayout } from 'yuuki-design'
 
 const SchemaField = createSchemaField({
   components: {
     Input,
-    FormItem
+    Button,
+    FormItem,
+    FormLayout
   }
 })
 const form = createForm()
@@ -20,8 +22,14 @@ const App: React.FC = () => {
 
   return (
     <FormProvider form={form}>
-      <FormLayout labelCol={{ span: 6 }} wrapperCol={{ span: 10 }}>
-        <SchemaField>
+      <SchemaField>
+        <SchemaField.Void
+          x-component='FormLayout'
+          x-component-props={{
+            labelCol: { span: 6 },
+            wrapperCol: { span: 10 }
+          }}
+        >
           <SchemaField.String
             required
             title='username'
@@ -36,13 +44,18 @@ const App: React.FC = () => {
             x-component='Input.Password'
             x-decorator='FormItem'
           />
-        </SchemaField>
-        <FormButtonGroup.FormItem>
-          <Button type='primary' onClick={onSubmit}>
-            提交
-          </Button>
-        </FormButtonGroup.FormItem>
-      </FormLayout>
+          <SchemaField.Void
+            x-component='Button'
+            x-decorator='FormItem'
+            x-decorator-props={{ colon: false }}
+            x-component-props={{
+              children: '提交',
+              type: 'primary',
+              onClick: onSubmit
+            }}
+          />
+        </SchemaField.Void>
+      </SchemaField>
     </FormProvider>
   )
 }

@@ -4,4 +4,27 @@
 
 ## 基本用法
 
+可以直接写在外层，这样方便使用 FormButtonGroup
+
 <code src='~/form-layout/basic.tsx' />
+
+## Markup Schmea 用法
+
+也可以通过 VoidField 的形式写在 Schema 中，但影响不到 FormButtonGroup
+
+<code src='~/form-layout/markup.tsx' />
+
+## API
+
+<font size='4'>FormLayout</font>
+
+| 参数名     | 描述                                    | 类型                                   | 默认值           |
+| ---------- | --------------------------------------- | -------------------------------------- | ---------------- |
+| className  | 节点类名                                | string \| string[]                     | -                |
+| style      | 节点样式                                | React.CSSProperties                    | -                |
+| layout     | FormItem 采用布局                       | 'horizontal' \| 'vertical' \| 'inline' | 'horizontal'     |
+| labelCol   | label 的格栅 col 参数                   | ColProps                               | \{ flex: 'none' \} |
+| wrapperCol | 内容的格栅 col 参数                     | ColProps                               | \{ flex: 'auto' \} |
+| colon      | 子元素中 FormItem 的 label 是否带有冒号 | boolean                                | true             |
+| asterisk   | 必填星号                                | boolean                                | true             |
+| labelAlign | label 的对齐方式                        | 'left' \| 'right'                      | 'right'          |

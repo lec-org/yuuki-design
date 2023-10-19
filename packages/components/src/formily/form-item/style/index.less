@@ -9,7 +9,12 @@
 
     & > label {
       display: flex;
+      justify-content: flex-end;
       align-items: center;
+    }
+
+    &.@{form-prefix-cls}-label-item-left > label {
+      justify-content: flex-start;
     }
   }
 

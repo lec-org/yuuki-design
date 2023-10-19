@@ -26,6 +26,11 @@ export interface FormLayoutContextType {
    *  @defaultValue true
    */
   asterisk?: boolean
+  /**
+   * @description label的对齐方式
+   * @defaultValue right
+   */
+  labelAlign?: FormItemProps['labelAlign']
 }
 
 export const FormLayoutContext = createContext<FormLayoutContextType>({})

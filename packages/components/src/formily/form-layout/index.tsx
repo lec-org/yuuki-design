@@ -18,6 +18,7 @@ const FormLayout: React.FC<FormLayoutProps> = observer((props) => {
       layout: 'horizontal',
       labelCol: { flex: 'none' },
       wrapperCol: { flex: 'auto' },
+      labelAlign: 'right',
       colon: true,
       asterisk: true,
       ...restProps

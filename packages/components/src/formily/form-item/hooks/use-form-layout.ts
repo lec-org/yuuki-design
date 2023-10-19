@@ -14,6 +14,7 @@ export function useFormLayout(props: FormItemProps) {
     labelCol: props.labelCol ?? layoutContext.labelCol ?? { flex: 'none' },
     wrapperCol: props.wrapperCol ??
       layoutContext.wrapperCol ?? { flex: 'auto' },
-    layout: props.layout ?? layoutContext.layout ?? 'horizontal'
+    layout: props.layout ?? layoutContext.layout ?? 'horizontal',
+    labelAlign: props.labelAlign ?? layoutContext.labelAlign
   }
 }

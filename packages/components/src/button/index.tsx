@@ -20,8 +20,11 @@ const Button: React.FC<ButtonProps> = (props) => {
   const loadingOnClick = useCallback(
     async (event: React.MouseEvent) => {
       setAutoLoading(true)
-      await onClick?.(event)
-      setAutoLoading(false)
+      try {
+        await onClick?.(event)
+      } finally {
+        setAutoLoading(false)
+      }
     },
     [onClick]
   )

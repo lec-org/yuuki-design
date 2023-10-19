@@ -67,7 +67,11 @@ export default defineConfig({
           collapsible: false,
           items: [
             {
-              text: 'FormGrid 表单格栅',
+              text: 'FormLayout 布局',
+              link: '/components/form-layout'
+            },
+            {
+              text: 'FormGrid 格栅',
               link: '/components/form-grid'
             }
           ]

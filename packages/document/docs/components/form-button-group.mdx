@@ -1,0 +1,31 @@
+# FormButtonGroup 表单按钮组
+
+只是提供了一个表单中按钮的放置位置，其它没了
+
+## 基本用法
+
+基本的用法
+
+<code src='~/form-button-group/basic.tsx' />
+
+## 表单对齐
+
+FormButtonItem 需要配合 FormLayout
+
+<code src='~/form-button-group/item.tsx' />
+
+## API
+
+<font size='4'>FormButtonGroup</font>
+
+| 参数名    | 描述     | 类型                | 默认值 |
+| --------- | -------- | ------------------- | ------ |
+| className | 节点类名 | string \| string[]  | -      |
+| style     | 节点样式 | React.CSSProperties | -      |
+| size      | 间距大小 | SpaceSize           | small  |
+
+<font size='4'>SpaceSize</font>
+
+```ts
+export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number
+```

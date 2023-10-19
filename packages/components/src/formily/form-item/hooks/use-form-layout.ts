@@ -10,7 +10,7 @@ export function useFormLayout(props: FormItemProps) {
   return {
     ...gridContext,
     colon: props.colon ?? layoutContext.colon ?? true,
-    asterisk: layoutContext.asterisk,
+    asterisk: props.asterisk ?? layoutContext.asterisk ?? true,
     labelCol: props.labelCol ?? layoutContext.labelCol ?? { flex: 'none' },
     wrapperCol: props.wrapperCol ??
       layoutContext.wrapperCol ?? { flex: 'auto' },

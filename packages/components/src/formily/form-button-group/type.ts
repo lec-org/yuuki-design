@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode } from 'react'
+import { SpaceSize } from '@arco-design/web-react/es/Space'
 
 export interface FormButtonGroupProps {
   children?: ReactNode
@@ -13,5 +14,5 @@ export interface FormButtonGroupProps {
   /**
    * @description 间距大小
    */
-  size?: number
+  size?: SpaceSize
 }

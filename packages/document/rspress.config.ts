@@ -73,6 +73,14 @@ export default defineConfig({
             {
               text: 'FormGrid 格栅',
               link: '/components/form-grid'
+            },
+            {
+              text: 'FormItem 项',
+              link: '/components/form-item'
+            },
+            {
+              text: 'FormButtonGroup',
+              link: '/components/form-button-group'
             }
           ]
         }

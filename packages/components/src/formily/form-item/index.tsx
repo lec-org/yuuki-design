@@ -15,7 +15,7 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
   const { getPrefixCls } = useContext(ConfigContext)
   const prefixCls = getPrefixCls!('form-item')
 
-  const { gridClassName, asterisk, ...formLayout } = useFormLayout(props)
+  const { gridClassName, asterisk, colon, ...formLayout } = useFormLayout(props)
   const { containerRef, overflow } = useOverFlow()
 
   const gridStyle: React.CSSProperties = {
@@ -43,6 +43,7 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
       style={{ ...gridStyle, ...style }}
       required={required && asterisk}
       label={renderLabel()}
+      colon={Boolean(colon && label)}
       {...formLayout}
     >
       {children}

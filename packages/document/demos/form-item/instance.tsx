@@ -48,7 +48,6 @@ const App: React.FC = observer(() => {
             title='用户名'
             name='username'
             x-component='FormInput'
-            // x-component-props={{ prefix: <span>+86</span> }}
             x-decorator='FormItem'
           />
           <SchemaField.String

@@ -1,0 +1,37 @@
+@import '../../../style/theme.less';
+
+@form-input-cls: ~'@{prefix}-form-input';
+@password-prefix-cls: ~'@{prefix}-form-password';
+
+.@{form-input-cls}-preview {
+  display: flex;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  width: 100%;
+
+  &-text {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.@{password-prefix-cls}-preview {
+  .@{prefix}-input-inner-wrapper-disabled {
+    cursor: auto;
+    color: var(--color-text-1);
+    -webkit-text-fill-color: var(--color-text-1);
+    background-color: transparent;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    input.@{prefix}-input-disabled {
+      cursor: auto;
+      color: var(--color-text-1);
+      -webkit-text-fill-color: var(--color-text-1);
+    }
+  }
+}

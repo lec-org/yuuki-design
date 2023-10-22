@@ -19,6 +19,7 @@ const FormGrid: React.FC<FormGridProps> = observer((props) => {
   const rowGap = useResponsiveValue(props.rowGap ?? 0)
 
   const gridStyle: React.CSSProperties = {
+    display: 'grid',
     gap: `${rowGap}px ${colGap}px`,
     gridTemplateColumns: `repeat(${cols}, minmax(0px, 1fr))`
   }

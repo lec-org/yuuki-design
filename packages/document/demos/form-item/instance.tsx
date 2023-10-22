@@ -1,13 +1,19 @@
 import React from 'react'
 import { createForm } from '@formily/core'
 import { FormProvider, createSchemaField, observer } from '@formily/react'
-import { Input, Switch } from '@arco-design/web-react'
-import { Button, FormButtonGroup, FormItem, FormLayout } from 'yuuki-design'
+import { Input } from '@arco-design/web-react'
+import {
+  Button,
+  FormButtonGroup,
+  FormInput,
+  FormItem,
+  FormLayout
+} from 'yuuki-design'
 
 const SchemaField = createSchemaField({
   components: {
     Input,
-    Switch,
+    FormInput,
     FormItem
   }
 })
@@ -41,14 +47,15 @@ const App: React.FC = observer(() => {
             required
             title='用户名'
             name='username'
-            x-component='Input'
+            x-component='FormInput'
+            // x-component-props={{ prefix: <span>+86</span> }}
             x-decorator='FormItem'
           />
           <SchemaField.String
             required
             title='密码'
             name='password'
-            x-component='Input.Password'
+            x-component='FormInput.Password'
             x-decorator='FormItem'
           />
         </SchemaField>

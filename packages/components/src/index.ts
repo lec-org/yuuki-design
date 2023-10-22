@@ -18,3 +18,5 @@ export type { FormItemProps } from './formily/form-item/type'
 
 export { default as FormButtonGroup } from './formily/form-button-group'
 export type { FormButtonGroupProps } from './formily/form-button-group/type'
+
+export { default as FormInput } from './formily/form-input'

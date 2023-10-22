@@ -1,7 +1,8 @@
-import React, { useMemo, useRef, useState } from 'react'
+import { useMemo } from 'react'
 import { isFunction, isNumber, isString } from 'lodash-es'
 import dayjs from 'dayjs'
-import { TableColumnProps, Tooltip } from '@arco-design/web-react'
+import { TableColumnProps } from '@arco-design/web-react'
+import OverflowTooltip from '../../overflow-tooltip'
 import { ColumnProps, ColumnValue, TableCellRender, TableProps } from '../type'
 
 const stringType: ColumnValue[] = ['text', 'date', 'dateTime']
@@ -42,7 +43,7 @@ export function useColumns<T>(
           }
           text = formatText ? formatText(text) : text
 
-          return <TableCellText ellipsis={ellipsis}>{text}</TableCellText>
+          return <OverflowTooltip ellipsis={ellipsis}>{text}</OverflowTooltip>
         } else if (isNumber(col) && numberType.includes(type)) {
           let result: string | number = col
           if (type === 'digit') {
@@ -60,7 +61,7 @@ export function useColumns<T>(
           }
           result = formatText ? formatText(result.toString()) : result
 
-          return <TableCellText ellipsis={ellipsis}>{result}</TableCellText>
+          return <OverflowTooltip ellipsis={ellipsis}>{result}</OverflowTooltip>
         }
 
         return col
@@ -84,62 +85,4 @@ export function useColumns<T>(
 
 const defaultEmptyRender = () => {
   return <div style={{ textIndent: '1em' }}>--</div>
-}
-
-const TableCellText: React.FC<{
-  ellipsis: boolean
-  children: React.ReactNode
-}> = (props) => {
-  const { ellipsis, children } = props
-
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  const onVisibleChange = (value: boolean) => {
-    if (value) {
-      const container = containerRef.current
-      if (container) {
-        const range = document.createRange()
-        range.setStart(container, 0)
-        range.setEnd(container, container.childNodes.length)
-        const style = getComputedStyle(container)
-        const padding =
-          parseInt(style.paddingLeft, 10) + parseInt(style.paddingRight, 10)
-        const scrollWidth = range.getBoundingClientRect().width + padding
-        const { width: clientWidth } = container.getBoundingClientRect()
-        const delta = Math.pow(10, -3) // 限制精度
-
-        if (scrollWidth - clientWidth > delta) {
-          setVisible(value) // 滚动宽度大于可视宽度认为隐藏
-        }
-      }
-    } else {
-      setVisible(value)
-    }
-  }
-
-  return (
-    <Tooltip
-      disabled={!ellipsis}
-      content={children}
-      popupVisible={visible}
-      onVisibleChange={onVisibleChange}
-    >
-      <div
-        ref={containerRef}
-        style={
-          ellipsis
-            ? {
-                maxWidth: '100%',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              }
-            : undefined
-        }
-      >
-        {children}
-      </div>
-    </Tooltip>
-  )
 }

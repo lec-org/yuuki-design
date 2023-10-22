@@ -106,7 +106,7 @@ const FormItemComponent = connect(
         return field.required && props.asterisk
       }
 
-      return field.required && field.pattern !== 'readPretty'
+      return field.required
     }
 
     return {

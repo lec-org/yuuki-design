@@ -1,7 +1,6 @@
 import React from 'react'
 import { createForm } from '@formily/core'
 import { FormProvider, createSchemaField, observer } from '@formily/react'
-import { Select } from '@arco-design/web-react'
 import {
   Button,
   FormButtonGroup,
@@ -13,7 +12,6 @@ import {
 
 const SchemaField = createSchemaField({
   components: {
-    Select,
     FormInput,
     FormSelect,
     FormItem
@@ -66,6 +64,7 @@ const App: React.FC = observer(() => {
             x-component='FormSelect'
             x-component-props={{
               cacheKey: 'form-sex',
+              allowClear: true,
               request: async () => [
                 { label: '男', value: 'male' },
                 { label: '女', value: 'female' },

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { isArray } from 'lodash-es'
 import { Field } from '@formily/core'
 import { connect, mapReadPretty, observer, useField } from '@formily/react'
 import { ConfigProvider, Space } from '@arco-design/web-react'
 import Select from '../../select'
-import { SelectProps } from '../../select/type'
+import { SelectProps, SelectRef } from '../../select/type'
 
 const { ConfigContext } = ConfigProvider
 
@@ -16,6 +16,7 @@ const PreviewSelect: React.FC<SelectProps> = observer(() => {
 
   const renderText = () => {
     const { value, dataSource = [] } = field
+
     if (isArray(value)) {
       const targets = dataSource.filter((item: any) =>
         value.includes(item.value)
@@ -40,17 +41,15 @@ const PreviewSelect: React.FC<SelectProps> = observer(() => {
 })
 
 const FormSelect: React.FC<SelectProps> = observer((props) => {
-  const { request, ...restProps } = props
-
   const field = useField<Field>() // 储存options
+  const selectRef = useRef<SelectRef>(null)
 
-  const requestWrapper = async (keyword?: string) => {
-    const result = await request(keyword)
-    field.setDataSource(result)
-    return result
-  }
+  useEffect(() => {
+    const options = selectRef.current?.getOptions()
+    field.setDataSource(options ?? [])
+  }) // 确保每次更新都有DataSource
 
-  return <Select {...restProps} request={requestWrapper} />
+  return <Select {...props} ref={selectRef} />
 })
 
 export default connect(FormSelect, mapReadPretty(PreviewSelect))

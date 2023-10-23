@@ -80,6 +80,12 @@ const App: React.FC = observer(() => {
             x-decorator='FormItem'
             x-component='FormDatePicker'
           />
+          <SchemaField.String
+            title='简介'
+            name='description'
+            x-decorator='FormItem'
+            x-component='FormInput.TextArea'
+          />
         </SchemaField>
         <FormButtonGroup.FormItem>
           <Button type='primary' onClick={onSubmit}>

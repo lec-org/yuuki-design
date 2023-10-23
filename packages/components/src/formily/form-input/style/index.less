@@ -1,6 +1,7 @@
 @import '../../../style/theme.less';
 
 @form-input-cls: ~'@{prefix}-form-input';
+@text-area-prefix-cls: ~'@{prefix}-form-text-area';
 @password-prefix-cls: ~'@{prefix}-form-password';
 
 .@{form-input-cls}-preview {
@@ -15,6 +16,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+}
+
+.@{text-area-prefix-cls}-preview {
+  padding: 4px 12px;
+  border: 1px solid transparent;
+
+  &.@{prefix}-typography {
+    margin-bottom: 0;
   }
 }
 

@@ -11,6 +11,8 @@ const Select = forwardRef<SelectRef, SelectProps>((props, ref) => {
     debounceWait = 800,
     resetOnBlur,
     defaultValue,
+    cacheKey,
+    cacheTime,
     ...restProps
   } = props
 
@@ -32,7 +34,9 @@ const Select = forwardRef<SelectRef, SelectProps>((props, ref) => {
     mutate: mutateOptions
   } = useRequest((keyword: string) => request(keyword), {
     debounceWait,
-    manual: true
+    manual: true,
+    cacheKey,
+    cacheTime
   })
 
   useMount(() => {

@@ -35,6 +35,15 @@ export interface SelectProps
    * @description 选择框的默认值
    */
   defaultValue?: SelectValue
+  /**
+   * @description 设置SWR缓存key
+   */
+  cacheKey?: string
+  /**
+   * @description SWR的缓存回收时间
+   * @defaultValue 300000
+   */
+  cacheTime?: number
 }
 
 export interface SelectRef extends SelectHandle {

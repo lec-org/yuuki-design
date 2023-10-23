@@ -3,6 +3,7 @@ import { isArray } from 'lodash-es'
 import { Field } from '@formily/core'
 import { connect, mapReadPretty, observer, useField } from '@formily/react'
 import { ConfigProvider, Space } from '@arco-design/web-react'
+import OverflowTooltip from '../../overflow-tooltip'
 import Select from '../../select'
 import { SelectProps, SelectRef } from '../../select/type'
 
@@ -37,7 +38,11 @@ const PreviewSelect: React.FC<SelectProps> = observer(() => {
     return target?.label ?? value
   }
 
-  return <div className={prefixCls}>{renderText()}</div>
+  return (
+    <div className={prefixCls}>
+      <OverflowTooltip ellipsis>{renderText()}</OverflowTooltip>
+    </div>
+  )
 })
 
 const FormSelect: React.FC<SelectProps> = observer((props) => {
@@ -52,4 +57,6 @@ const FormSelect: React.FC<SelectProps> = observer((props) => {
   return <Select {...props} ref={selectRef} />
 })
 
-export default connect(FormSelect, mapReadPretty(PreviewSelect))
+const FormSelectComponent = connect(FormSelect, mapReadPretty(PreviewSelect))
+
+export default FormSelectComponent

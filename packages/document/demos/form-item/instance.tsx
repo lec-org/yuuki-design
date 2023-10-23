@@ -4,6 +4,7 @@ import { FormProvider, createSchemaField, observer } from '@formily/react'
 import {
   Button,
   FormButtonGroup,
+  FormDatePicker,
   FormInput,
   FormSelect,
   FormItem,
@@ -14,6 +15,7 @@ const SchemaField = createSchemaField({
   components: {
     FormInput,
     FormSelect,
+    FormDatePicker,
     FormItem
   }
 })
@@ -71,6 +73,12 @@ const App: React.FC = observer(() => {
                 { label: '保密', value: 'secret' }
               ]
             }}
+          />
+          <SchemaField.String
+            title='生日'
+            name='birthday'
+            x-decorator='FormItem'
+            x-component='FormDatePicker'
           />
         </SchemaField>
         <FormButtonGroup.FormItem>

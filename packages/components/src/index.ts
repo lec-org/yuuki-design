@@ -22,3 +22,5 @@ export type { FormButtonGroupProps } from './formily/form-button-group/type'
 export { default as FormInput } from './formily/form-input'
 
 export { default as FormSelect } from './formily/form-select'
+
+export { default as FormDatePicker } from './formily/form-date-picker'

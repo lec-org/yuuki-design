@@ -31,7 +31,7 @@ export default defineConfig({
     nav: [
       {
         text: '指南',
-        link: '/guide',
+        link: '/guide/quick-start',
         activeMatch: '/guide'
       },
       {
@@ -41,6 +41,12 @@ export default defineConfig({
       }
     ],
     sidebar: {
+      '/guide': [
+        {
+          text: '快速开始',
+          link: '/guide/quick-start'
+        }
+      ],
       '/components': [
         {
           text: '常规组件',

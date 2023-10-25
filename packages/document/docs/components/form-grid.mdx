@@ -8,11 +8,29 @@
 
 <code src='~/form-grid/basic.tsx' />
 
+## 超出折叠
+
+设置`collapsed`属性可使超出项的折叠
+
+::: warning
+
+由于formily的props不受react数据流更新，使用Schema格式时请获取field修改componentProps
+
+:::
+
+<code src='~/form-grid/collapsed.tsx' />
+
 ## 原生用法
 
 不推荐使用，但是也能使用，不过使用这个相比使用 arco-grid 没有任何优势
 
 <code src='~/form-grid/origin.tsx' />
+
+## 原生折叠案例
+
+原生也支持折叠
+
+<code src='~/form-grid/origin-collapsed.tsx' />
 
 ## API
 

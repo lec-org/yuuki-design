@@ -1,21 +1,24 @@
 import { useResponsive } from 'ahooks'
-import { isObject, isUndefined } from 'lodash-es'
+import { isNumber, isObject } from 'lodash-es'
 import { Breakpoint } from '../type'
 
-export function useResponsiveValue(
+export function useResponsiveValue({
+  value,
+  defaultValue
+}: {
   value?: number | Record<Breakpoint, number>
-) {
+  defaultValue: number
+}) {
   const responsive = useResponsive()
-  let responsiveValue
+  let responsiveValue = defaultValue
 
   if (isObject(value)) {
     Object.keys(responsive).forEach((key) => {
-      const pointValue = value[key as Breakpoint] as unknown
-      if (responsive[key] && !isUndefined(pointValue)) {
-        responsiveValue = pointValue
+      if (responsive[key] && Reflect.has(value, key)) {
+        responsiveValue = value[key as Breakpoint]
       }
     })
-  } else {
+  } else if (isNumber(value)) {
     responsiveValue = value
   }
 

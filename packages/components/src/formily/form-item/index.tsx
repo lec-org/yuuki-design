@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { omit } from 'lodash-es'
 import { isVoidField } from '@formily/core'
 import { connect, mapProps, observer } from '@formily/react'
@@ -10,18 +10,44 @@ const { ConfigContext } = ConfigProvider
 const { Item: ArcoFormItem } = Form
 
 const FormItem: React.FC<FormItemProps> = observer((props) => {
-  const { children, style, gridSpan, required, label, ...restProps } = props
+  const { children, style, suffix, required, label, ...restProps } = props
 
   const { getPrefixCls } = useContext(ConfigContext)
   const prefixCls = getPrefixCls!('form-item')
 
-  const { gridClassName, asterisk, colon, ...formLayout } = useFormLayout(props)
+  const {
+    gridClassName,
+    gridSpan,
+    asterisk,
+    colon,
+    overflow: gridOverflow,
+    visibleItemList,
+    ...formLayout
+  } = useFormLayout(props)
   const { containerRef, overflow } = useOverFlow()
 
-  const gridStyle: React.CSSProperties = {
-    gridColumn: gridClassName ? `span ${gridSpan ?? 1} / auto` : 'unset',
-    flexWrap: formLayout.layout === 'horizontal' ? 'nowrap' : 'wrap'
+  const formItemRef = useRef<HTMLDivElement>(null)
+  const getGridStyle = () => {
+    const gridStyle: React.CSSProperties = {
+      gridColumn: gridClassName ? `span ${gridSpan} / auto` : 'unset',
+      flexWrap: formLayout.layout === 'horizontal' ? 'nowrap' : 'wrap'
+    }
+
+    const item = formItemRef.current
+    if (!item || !visibleItemList?.includes(item)) {
+      gridStyle.display = 'none'
+    }
+
+    return gridStyle
   }
+  const gridStyle = getGridStyle()
+  useEffect(() => {
+    const element = formItemRef.current
+    if (element) {
+      element.setAttribute('data-grid-span', String(gridSpan))
+      suffix && element.setAttribute('data-sufifx', '')
+    }
+  }, [gridSpan, suffix])
 
   const renderLabel = () => {
     return (
@@ -39,7 +65,8 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
 
   return (
     <ArcoFormItem
-      {...omit(restProps, ['asterisk'])}
+      {...omit(restProps, ['asterisk', 'gridSpan'])}
+      ref={formItemRef}
       style={{ ...gridStyle, ...style }}
       required={required && asterisk}
       label={renderLabel()}

@@ -27,6 +27,14 @@ export interface FormGridProps {
    * @defaultValue 0
    */
   rowGap?: number | Record<Breakpoint, number>
+  /**
+   * @description 是否折叠
+   */
+  collapsed?: boolean
+  /**
+   * @description 折叠时显示的行数
+   */
+  collapsedRows?: number
 }
 
 export interface FormGridItemProps {
@@ -44,4 +52,8 @@ export interface FormGridItemProps {
    * @defaultValue 1
    */
   span?: number | Record<Breakpoint, number>
+  /**
+   * @description 是否后缀元素
+   */
+  suffix?: boolean
 }

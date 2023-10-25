@@ -24,6 +24,10 @@ export interface FormItemProps
    */
   gridSpan?: number
   /**
+   * @description 是否是后缀元素
+   */
+  suffix?: boolean
+  /**
    *  @description 必填星号
    *  @defaultValue true
    */

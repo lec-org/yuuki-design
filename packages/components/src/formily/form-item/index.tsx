@@ -33,9 +33,11 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
       flexWrap: formLayout.layout === 'horizontal' ? 'nowrap' : 'wrap'
     }
 
-    const item = formItemRef.current
-    if (!item || !visibleItemList?.includes(item)) {
-      gridStyle.display = 'none'
+    if (gridClassName) {
+      const item = formItemRef.current
+      if (!item || !visibleItemList?.includes(item)) {
+        gridStyle.display = 'none'
+      }
     }
 
     return gridStyle

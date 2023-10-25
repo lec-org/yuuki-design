@@ -14,11 +14,11 @@
     "deploy": "modern deploy",
     "lint": "modern lint",
     "upgrade": "modern upgrade",
-    "dev": "pnpm -C packages/components dev",
-    "build": "pnpm -C packages/components build",
-    "docs:dev": "pnpm -C packages/document dev",
-    "docs:build": "pnpm -C packages/document build",
-    "docs:preview": "pnpm -C packages/document preview"
+    "dev": "pnpm -C components dev",
+    "build": "pnpm -C components build",
+    "docs:dev": "pnpm -C docs dev",
+    "docs:build": "pnpm -C docs build",
+    "docs:preview": "pnpm -C docs preview"
   },
   "engines": {
     "node": ">=16.18.1"

@@ -14,7 +14,7 @@
 
 ::: warning
 
-由于formily的props不受react数据流更新，使用Schema格式时请获取field修改componentProps
+由于 formily 的 props 不受 react 数据流更新，使用 Schema 格式时请获取 field 修改 componentProps
 
 :::
 
@@ -36,21 +36,24 @@
 
 <font size='4'>FormGrid</font>
 
-| 参数名    | 描述           | 类型                                   | 默认值 |
-| --------- | -------------- | -------------------------------------- | ------ |
-| className | 节点类名       | string \| string[]                     | -      |
-| style     | 节点样式       | React.CSSProperties                    | -      |
-| cols      | 每行展示的列数 | number \| Record\<Breakpoint, number\> | 3      |
-| colGap    | 列间距         | number \| Record\<Breakpoint, number\> | 0      |
-| rowGap    | 行间距         | number \| Record\<Breakpoint, number\> | 0      |
+| 参数名        | 描述             | 类型                                   | 默认值 |
+| ------------- | ---------------- | -------------------------------------- | ------ |
+| className     | 节点类名         | string \| string[]                     | -      |
+| style         | 节点样式         | React.CSSProperties                    | -      |
+| cols          | 每行展示的列数   | number \| Record\<Breakpoint, number\> | 3      |
+| colGap        | 列间距           | number \| Record\<Breakpoint, number\> | 0      |
+| rowGap        | 行间距           | number \| Record\<Breakpoint, number\> | 0      |
+| collapsed     | 是否折叠         | boolean                                | -      |
+| collapsedRows | 折叠时显示的行数 | number                                 | -      |
 
 <font size='4'>FormGrid.GridItem</font>
 
-| 参数名    | 描述       | 类型                | 默认值 |
-| --------- | ---------- | ------------------- | ------ |
-| className | 节点类名   | string \| string[]  | -      |
-| style     | 节点样式   | React.CSSProperties | -      |
-| span      | 跨越的格数 | number              | 1      |
+| 参数名    | 描述         | 类型                | 默认值 |
+| --------- | ------------ | ------------------- | ------ |
+| className | 节点类名     | string \| string[]  | -      |
+| style     | 节点样式     | React.CSSProperties | -      |
+| span      | 跨越的格数   | number              | 1      |
+| suffix    | 是否后缀元素 | boolean             | -      |
 
 <font size='4'>Breakpoint</font>
 

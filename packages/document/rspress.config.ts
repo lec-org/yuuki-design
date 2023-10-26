@@ -11,6 +11,7 @@ export default defineConfig({
       }
     }
   },
+  ssg: false,
   root: path.resolve(__dirname, 'docs'),
   title: 'Yuuki Design',
   description: '基于Arco Design的业务组件库',

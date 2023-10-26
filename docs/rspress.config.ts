@@ -11,6 +11,7 @@ export default defineConfig({
       }
     }
   },
+  ssg: false,
   base: '/yuuki-design',
   root: path.resolve(__dirname, 'docs'),
   title: 'Yuuki Design',

@@ -59,7 +59,7 @@ const FormItem: React.FC<FormItemProps> = observer((props) => {
             {label}
           </Tooltip>
         ) : (
-          label
+          <>{label}</>
         )}
       </span>
     )

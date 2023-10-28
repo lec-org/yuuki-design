@@ -12,7 +12,7 @@
 
 ## 快速开始
 
-详细见文档站
+详细见文档站:详细见文档站:https://yuuki-design.altria-caster.top/
 
 ```bash
 # npm
